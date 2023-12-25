@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Apolis - Thống kê học viên</title>
+    <link rel="stylesheet" type="text/css" href="../../public/stylesheets/apprroveCourse.css">
+    <!-- Google Font: Source Sans Pro -->
+    <%-include('../../boostrap.ejs')%>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="../../public/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
+                width="60" />
+        </div>
+
+        <!-- Navbar -->
+        <%-include('../../navBar.ejs')%>
+            <!-- /.navbar -->
+            <!-- ------------------------------- Main Sidebar Container -----------------------------------------------------------   -->
+            <!-- Main Sidebar Container -->
+            <%-include('../sidebarMenu.ejs')%>
+                <!-- ------------------------ Content Wrapper. Contains page content -----------------------------------------------------------   -->
+
+                <!-- Content Wrapper. Contains page content -->
+                <div class="content-wrapper bg-white">
+                    <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1>Thống kê học viên</h1>
+                                </div>
+                            </div>
+                        </div><!-- /.container-fluid -->
+                    </section>
+                    <!-- Content Header (Page header) -->
+                    <div class="row">
+                        <!-- top-5-->
+                        <div class="col-md-5 m-3">
+                            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                        </div>
+                        <!-- end-top-5 -->
+
+                        <!-- doanh-thu -->
+                        <div class="col-md-6 m-3">
+                            <div class="card">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">Các giảng viên vi phạm quy chế</h3>
+                                    <div class="card-tools">
+                                        <a href="#" class="btn btn-tool btn-sm">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-tool btn-sm">
+                                            <i class="fas fa-bars"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-striped table-valign-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên giảng viên</th>
+                                                <th>Giới tính</th>
+                                                <th>Mức độ vi phạm</th>
+                                                <th>More</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a
+                                                        href="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/403174676_18258190081203504_4826280005544479321_n.jpg">
+                                                        <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/403174676_18258190081203504_4826280005544479321_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=dNcSVYYZg2MAX85bbiB&_nc_ht=scontent.fhan2-4.fna&oh=00_AfDVBBzyPA89QoPP-WfhuERIZPJeSyeTyhSbiNIEqd-rYQ&oe=6568962A"
+                                                            alt="Product 1" class="img-circle img-size-32 mr-2">
+                                                    </a>
+                                                    Nguyễn Hoàng Long
+                                                </td>
+                                                <td>Nam</td>
+                                                <td>
+                                                    <small class="text-danger mr-1">
+                                                        Nghiêm trọng
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="text-muted">
+                                                        <i class="fas fa-bars"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a
+                                                        href="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/375051866_845167663629700_3528783960442687208_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9Ouyb85_RjoAX-3nmK5&_nc_ht=scontent.fhan2-4.fna&oh=00_AfCqkLrXtzU6MmWy-fu5MmphO_EZExiTZMqF1nw48nCARg&oe=656765A4">
+                                                        <img src="https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/375051866_845167663629700_3528783960442687208_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=9Ouyb85_RjoAX-3nmK5&_nc_ht=scontent.fhan2-4.fna&oh=00_AfCqkLrXtzU6MmWy-fu5MmphO_EZExiTZMqF1nw48nCARg&oe=656765A4"
+                                                            alt="Product 1" class="img-circle img-size-32 mr-2">
+                                                    </a>
+                                                    Hoàng Việt Hùng
+                                                </td>
+                                                <td>Nữ</td>
+                                                <td>
+                                                    <small class="text-danger mr-1">
+                                                        Nghiêm trọng
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="text-muted">
+                                                        <i class="fas fa-bars"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header border-0">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Mức kinh nghiệm</th>
+                                                <th>Số lượng giáo viên</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Dưới 5 năm</td>
+                                                <td>50</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Từ 5 đến 10 năm</td>
+                                                <td>35</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trên 10 năm</td>
+                                                <td>20</td>
+                                            </tr>
+                                            <!-- Thay thế các dòng trên bằng dữ liệu thực tế từ hệ thống của bạn -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- end-doanh-thu -->
+
+                        </div>
+                        <!-- /.content -->
+                    </div>
+                    <!-- /.content-wrapper -->
+                </div>
+                <!-- /.content-wrapper -->
+
+                <!-- ------------------------ Footer -----------------------------------------------------------   -->
+                <%-include('../../footer.ejs')%>
+    </div>
+    <%-include('../../styleJs.ejs')%>
+</body>
+
+</html>

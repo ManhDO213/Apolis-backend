@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Apolis - Thống kê khóa học</title>
+    <%-include('../../boostrap.ejs')%>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="../../public/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60"
+                width="60" />
+        </div>
+
+        <!-- Navbar -->
+        <%-include('../../navBar.ejs')%>
+            <!-- /.navbar -->
+            <!-- ------------------------------- Main Sidebar Container -----------------------------------------------------------   -->
+            <!-- Main Sidebar Container -->
+            <%-include('../sidebarMenu.ejs')%>
+                <!-- ------------------------ Content Wrapper. Contains page content -----------------------------------------------------------   -->
+
+                <!-- Content Wrapper. Contains page content -->
+                <div class="content-wrapper">
+                    <!-- Content Header (Page header) -->
+                    <div class="row">
+                        <!-- top-5-->
+                        <div class="col-md-5 m-3">
+                            <div class="card">
+                                <!-- /.card-header -->
+                                <div class="card-body p-0">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Top 5 khóa học bán chạy nhất</h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="info-box">
+                                                <span class="info-box-icon">
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="">
+                                                </span>
+
+                                                <div class="info-box-content m-2">
+                                                    <span class="info-box-text">Khóa học tiếng Anh online giao tiếp
+                                                        TOPICA Native</span>
+                                                    <span class="info-box-number">410</span>
+                                                </div>
+                                                <span class="info-box-icon">
+                                                    <img src="../../public/img/top1.png"
+                                                        style="width: 50px; height: 50px;" alt="">
+                                                </span>
+
+                                            </div>
+
+                                            <div class="info-box">
+                                                <span class="info-box-icon">
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="">
+                                                </span>
+
+                                                <div class="info-box-content m-2">
+                                                    <span class="info-box-text">Client</span>
+                                                    <span class="info-box-number">300</span>
+                                                </div>
+                                                <span class="info-box-icon">
+                                                    <img src="../../public/img/top2.png"
+                                                        style="width: 50px; height: 50px;" alt="">
+                                                </span>
+
+                                            </div>
+                                            <div class="info-box">
+                                                <span class="info-box-icon">
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="">
+                                                </span>
+
+                                                <div class="info-box-content m-2">
+                                                    <span class="info-box-text">Client</span>
+                                                    <span class="info-box-number">300</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-box">
+                                                <span class="info-box-icon">
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="">
+                                                </span>
+
+                                                <div class="info-box-content m-2">
+                                                    <span class="info-box-text">Client</span>
+                                                    <span class="info-box-number">300</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-box">
+                                                <span class="info-box-icon">
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="">
+                                                </span>
+
+                                                <div class="info-box-content m-2">
+                                                    <span class="info-box-text">Client</span>
+                                                    <span class="info-box-number">300</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- end-top-5 -->
+
+                        <!-- doanh-thu -->
+                        <div class="col-md-6 m-3">
+                            <div class="card">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">Khóa học có lượt truy cập nhiều nhất</h3>
+                                    <div class="card-tools">
+                                        <a href="#" class="btn btn-tool btn-sm">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-tool btn-sm">
+                                            <i class="fas fa-bars"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-striped table-valign-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên khóa học</th>
+                                                <th>Giá</th>
+                                                <th>Tăng trưởng</th>
+                                                <th>More</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="Product 1" class="img-circle img-size-32 mr-2">
+                                                    Khóa học tiếng Anh online giao tiếp TOPICA Native
+                                                </td>
+                                                <td>13000 Coin</td>
+                                                <td>
+                                                    <small class="text-success mr-1">
+                                                        <i class="fas fa-arrow-up"></i>
+                                                        12%
+                                                    </small>
+                                                    12 Access
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="text-muted">
+                                                        <i class="fas fa-bars"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="Product 1" class="img-circle img-size-32 mr-2">
+                                                    Khóa học tiếng Anh online giao tiếp TOPICA Native
+                                                </td>
+                                                <td>13000 Coin</td>
+                                                <td>
+                                                    <small class="text-success mr-1">
+                                                        <i class="fas fa-arrow-up"></i>
+                                                        12%
+                                                    </small>
+                                                    12 Access
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="text-muted">
+                                                        <i class="fas fa-bars"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="Product 1" class="img-circle img-size-32 mr-2">
+                                                    Khóa học tiếng Anh online giao tiếp TOPICA Native
+                                                </td>
+                                                <td>13000 Coin</td>
+                                                <td>
+                                                    <small class="text-success mr-1">
+                                                        <i class="fas fa-arrow-up"></i>
+                                                        12%
+                                                    </small>
+                                                    12 Access
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="text-muted">
+                                                        <i class="fas fa-bars"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- end-doanh-thu -->
+                            <div class="card">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">Khóa học có lượt truy cập ít nhất</h3>
+                                    <div class="card-tools">
+                                        <a href="#" class="btn btn-tool btn-sm">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-tool btn-sm">
+                                            <i class="fas fa-bars"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-striped table-valign-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên khóa học</th>
+                                                <th>Giá</th>
+                                                <th>Tăng trưởng</th>
+                                                <th>More</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="Product 1" class="img-circle img-size-32 mr-2">
+                                                    Khóa học tiếng Anh online giao tiếp TOPICA Native
+                                                </td>
+                                                <td>13000 Coin</td>
+                                                <td>
+                                                    <small class="text-danger mr-1">
+                                                        <i class="fas fa-arrow-down"></i>
+                                                        3%
+                                                    </small>
+                                                    3 Access
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="text-muted">
+                                                        <i class="fas fa-bars"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <img src="https://springo.vn/image/cache/data/top5ungdunghotrohoctienganh-_1600x900-800-resize-500x333.jpg"
+                                                        alt="Product 1" class="img-circle img-size-32 mr-2">
+                                                    Khóa học tiếng Anh online giao tiếp TOPICA Native
+                                                </td>
+                                                <td>13000 Coin</td>
+                                                <td>
+                                                    <small class="text-danger mr-1">
+                                                        <i class="fas fa-arrow-down"></i>
+                                                        3%
+                                                    </small>
+                                                    1 Access
+                                                <td>
+                                                    <a href="#" class="text-muted">
+                                                        <i class="fas fa-bars"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.content -->
+                    </div>
+                    <!-- /.content-wrapper -->
+
+                </div>
+                <%-include('../../footer.ejs')%>
+    </div>
+</body>
+<%-include('../../styleJs.ejs')%>
+
+</html>

@@ -1,0 +1,658 @@
+<div class="content-page">
+    <div class="content">
+      <!-- Start Content-->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="card">
+              <div class="card-body p-1 pt-4">
+                <div class="card-body-action-course">
+                  <!-- left column -->
+                  <div class="col">
+                    <div id="loading" class="loading-container">
+                      <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                      </div>
+                    </div>
+  
+                    <div id="dialog" class="dialog-container">
+                      <div class="dialog-content">
+                        <span id="dialog-message"></span>
+                        <button onclick="hideDialog()">Ok</button>
+                      </div>
+                    </div>
+                    <!-- form start -->
+                    <form id="uploadForm">
+                      <div>
+                        <div class="row">
+                          <div class="col-3 connectedSortable">
+                            <img class="d-block w-100"
+                              src="<%= account[0].profileData.avatarUrl %>">
+                          </div>
+                          <div class="col-9">
+                            <div class="row">
+                              <div class="form-group col-12">
+                                <label for="name">Tên giảng viên</label>
+                                <input type="text" class="form-control" placeholder="Nhập tên giảng viên" id="name" value="<%= account[0].profileData.name %>"
+                                  required />
+                              </div>
+  
+                              <div class="col-lg-3 form-group">
+                                <label for="fileInput" class="form-label">Chọn ảnh đại diện</label>
+                                <input type="file" class="form-control" id="avatarUrl" name="avatarUrl" accept="image/*"
+                                  multiple required />
+                              </div>
+                              <div class="form-group col-lg-3">
+                                <label for="categories">Giới tính</label>
+                                <select id="teacher-info" class="form-control" required="">
+                                  <option value="">-- Chọn giới tính --</option>
+                                  <option value="MALE">
+                                    Nam
+                                  </option>
+  
+                                  <option value="FEMALE" selected>
+                                    Nữ
+                                  </option>
+  
+                                </select>
+                              </div>
+  
+                              <div class="form-group col-lg-6">
+                                <label for="phoneNumber">Số điện thoại</label>
+                                <input type="text" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại" value="<%= account[0].phoneNumber %>"
+                                  required />
+                              </div>
+  
+                              <div class="form-group col-lg-12">
+                                <label for="session">Email</label>
+                                <input type="text" class="form-control" id="email" placeholder="Nhập email"  value="<%= account[0].email %>"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group col-lg-12">
+                            <label for="description">Mô tả bản thân</label>
+                            <textarea class="form-control p-4" id="course-description" cols="30" rows="5"
+                              required><%= account[0].profileData.introduce %></textarea>
+                          </div>
+                          <!-- kĩ năng -->
+                          <div class="col-lg-12 card p-3">
+                            <label for="fileInput" class="form-label">Kỹ năng</label>
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="tab-content-course-quiz selected" data-tab="1">
+                                  <div>
+                                    <address>
+                                      <div data-tab="1" id="div_skill" class=" col-skill"><% account[0].profileData.skills.forEach((row)=> { %>
+                                        <b>- </b>
+                                        <%= row %> <br>
+                                        <button type="button" class="close" onclick="removeSkill()">&times;</button>
+                                          <% }) %>
+                                      </div>
+  
+                                    </address>
+                                  </div>
+                                  <!-- modal-skill  -->
+                                  <div class="modal" id="skill">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Thêm kỹ năng</h4>
+                                          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                        </div>
+  
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                          <div class="form-group">
+                                            <input type="text" class="form-control" id="input-skill" rows="4"
+                                              placeholder="Nhập kỹ năng" maxlength="150"></input>
+                                          </div>
+                                        </div>
+  
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Huỷ</button>
+                                          <button type="button" class="btn btn-outline-success"
+                                            onclick="themKynang()">Thêm</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <button type="button" class="btn btn-success mt-2 add-tab-quiz" data-bs-toggle="modal"
+                                  data-bs-target="#skill">
+                                  Thêm kỹ năng
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Học vấn -->
+                          <div class="col-lg-12 card p-3">
+                            <label for="fileInput" class="form-label">Học vấn</label>
+                            <div class="row mt-2">
+                              <div class="form-group col-6">
+                                <label for="" class="form-label">Thời gian bắt đầu</label>
+                                <input type="date" class="form-control start-schedule-time" required />
+                              </div>
+                              <div class="form-group col-6">
+                                <label for="" class="form-label">Thời gian kết thúc</label>
+                                <input type="date" class="form-control end-schedule-time" required />
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="tab-content-course-quiz selected" data-tab="1">
+                                  <div>
+                                    <div data-tab="1" class="listEducation col-education"><b> - </b>
+                                      <strong>Nơi học: </strong> Education
+                                      <button type="button" class="close close-education"
+                                        onclick="removeEducation()">&times;</button>
+                                      <br> <strong class="ml-2">Thành tích: </strong> Description
+                                    </div>
+                                  </div>
+                                  <!-- modal-education  -->
+                                  <div class="modal" id="education">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Thêm trường học</h4>
+                                          <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                        </div>
+  
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                          <div class="form-group">
+                                            <p class="form-label">Tên trường:</p>
+                                            <input type="text" class="form-control" id="input_education_1" rows="4"
+                                              maxlength="150"></input>
+                                            <p class="form-label">Mô tả:</p>
+                                            <input type="text" class="form-control" id="input_education_2" rows="4"
+                                              maxlength="150"></input>
+                                          </div>
+                                        </div>
+  
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Huỷ</button>
+                                          <button type="button" class="btn btn-outline-success"
+                                            onclick="themTruongHoc()">Thêm</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+  
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <button type="button" class="btn btn-success mt-2 add-tab-quiz" data-bs-toggle="modal"
+                                  data-bs-target="#education">
+                                  Thêm học vấn
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Kinh nghiệm -->
+                          <div class="col-lg-12 card p-3 ">
+                            <label for="fileInput" class="form-label" id="tilte-company">Kinh nghiệm</label>
+                            <div class="row" id="value-experiences">
+                              <div class="col-4 col-company">
+                                <div class="card-body text-secondary">
+                                  <button type="button" class="close float-end" onclick="removeParent()">&times;</button>
+                                  <button type="button" class="close float-end icon-button mr-1"
+                                    style="margin-top: -3px; border: none; background: none;" data-bs-toggle="modal"
+                                    data-bs-target="#editCompany" onclick="showData()">
+                                    <i class="fas fa-edit icon" style="font-size: 15px;"></i></button>
+                                  <h5 class="card-title text-secondary">Giáo Viên Tiếng Anh</h5>
+                                  <p class="card-text text-date">Thời gian: 18/10/2016 - 30/12/2022</p>
+                                  <p class="card-text text-address">Nơi làm viêc: Trung tâm anh ngữ VietNamtalk education
+                                  </p>
+                                  <p class="card-text text-des">Mô tả:
+                                  <address>
+                                    <div data-tab="1"><b> - </b> Đứng lớp 20 chương trình giảng dạy: Ielts, chương trình
+                                      Bộ giáo dục, chương trình luyện thi
+                                    </div>
+                                    <div data-tab="2"><b> - </b> Hỗ trợ Phòng Đào tạo khi không có lớp (kiểm soát, chấm
+                                      chéo BTVN, test…)
+                                    </div>
+                                    <div data-tab="3"><b> - </b> Chấm chữa BTVN và nhận xét đánh giá 500 Học sinh
+                                    </div>
+                                  </address>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12">
+                              <button type="submit" class="btn btn-success mt-2 add-tab-quiz" data-bs-toggle="modal"
+                                data-bs-target="#company">Thêm Kinh
+                                nghiệm</button>
+                            </div>
+                            <!-- modal-company  -->
+                            <div class="modal" id="company">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <!-- Modal Header -->
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Thêm kinh nghiệm</h4>
+                                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                  </div>
+  
+                                  <!-- Modal body -->
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <p class="form-label">Tên kinh nghiệm:</p>
+                                      <input id="inputTenKinhNghiem" type="text" class="form-control" rows="4"
+                                        maxlength="150"></input>
+                                      <p class="form-label">Thời gian bắt đầu:</p>
+                                      <input id="inputThoiGianBatDau" type="date" class="form-control" rows="4"></input>
+                                      <p class="form-label">Thời gian kết thúc:</p>
+                                      <input id="inputThoiGianKetThuc" type="date" class="form-control" rows="4"></input>
+                                      <p class="form-label">Nơi làm việc:</p>
+                                      <input id="inputNoiLamViec" type="text" class="form-control" rows="4"
+                                        maxlength="150"></input>
+                                      <p class="form-label">Mô tả:</p>
+                                      <input id="inputDescription_0" type="text" class="form-control input-des" rows="4"
+                                        maxlength="150"></input>
+                                      <a class="text-success float-end text-decoration-none" id="btnAddRole"
+                                        onclick="themONhap()">
+                                        +
+                                      </a>
+                                    </div>
+                                  </div>
+  
+                                  <!-- Modal footer -->
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ</button>
+                                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
+                                      onclick="themDuLieu()">Thêm</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- modal-edit-company  -->
+                            <div class="modal" id="editCompany">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <!-- Modal Header -->
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Sửa kinh nghiệm</h4>
+                                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                                  </div>
+  
+                                  <!-- Modal body -->
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <p class="form-label">Tên kinh nghiệm:</p>
+                                      <input id="inputTenKinhNghiem" type="text" class="form-control" rows="4"
+                                        maxlength="150"></input>
+                                      <p class="form-label">Thời gian bắt đầu:</p>
+                                      <input id="inputThoiGianBatDau" type="date" class="form-control" rows="4"></input>
+                                      <p class="form-label">Thời gian kết thúc:</p>
+                                      <input id="inputThoiGianKetThuc" type="date" class="form-control" rows="4"></input>
+                                      <p class="form-label">Nơi làm việc:</p>
+                                      <input id="inputNoiLamViec" type="text" class="form-control" rows="4"
+                                        maxlength="150"></input>
+                                      <p class="form-label">Mô tả:</p>
+                                      <input id="inputDescription_0" type="text" class="form-control input-des" rows="4"
+                                        maxlength="150"></input>
+                                      <button class="text-success float-end pe-auto" id="btnAddRole"
+                                        onclick="themONhap()">
+                                        +
+                                    </button>
+                                    </div>
+                                  </div>
+  
+                                  <!-- Modal footer -->
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Huỷ</button>
+                                    <button type="button" class="btn btn-outline-success"
+                                      data-bs-dismiss="modal">Sửa</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="float-right mt-2 mb-3">
+                            <button type="button" class="btn btn-danger waves-effect waves-light" onclick="history.back()">Hủy</button>
+                          <button type="submit" class="btn btn-success waves-effect waves-light">Cập nhật</button>
+                        </div>
+                    </form>
+                    <!-- /.card -->
+                  </div>
+                  <!--/.col (left) -->
+                </div>
+              </div>
+            </div>
+            <!-- /.row -->
+          </div> <!-- content -->
+        </div>
+      </div> <!-- container-fluid -->
+    </div> <!-- content -->
+  </div>
+  
+  <script src="/plugins/jquery/jquery.min.js"></script>
+  <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+  <script src="/dist/js/adminlte.min.js"></script>
+  <script src="/dist/js/demo.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+  <script src="https://vjs.zencdn.net/7.15.4/video.js"></script>
+  <!-- Thay đổi avatar -->
+  <script>
+    var inputElement = document.getElementById("avatarUrl");
+    inputElement.addEventListener("change", function (event) {
+      var file = event.target.files[0];
+      // Kiểm tra xem tệp tin là hình ảnh
+      if (file && file.type.startsWith("image/")) {
+        var reader = new FileReader();
+        // Đọc nội dung của tệp tin hình ảnh
+        reader.onload = function (e) {
+          var previewImage = document.createElement("img");
+          previewImage.className = "d-block w-100";
+          previewImage.src = e.target.result; // Gán nội dung đã đọc vào thuộc tính src của thẻ img
+  
+          var previewContainer = document.querySelector(".col-3.connectedSortable");
+          previewContainer.innerHTML = ""; // Xóa nội dung hiện tại của container
+          previewContainer.appendChild(previewImage);
+          var previewContainer = document.querySelector(".col-3.connectedSortable");
+          previewContainer.innerHTML = ""; // Xóa nội dung hiện tại của container
+          previewContainer.appendChild(previewImage); // Thêm hình ảnh vào container
+        };
+        // Đọc nội dung của tệp tin hình ảnh dưới dạng URL base64
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+  <!-- Thêm ô mô tả -->
+  <script>
+    var inputCount = 0;
+    function themONhap() {
+      // Tạo phần tử input mới
+      inputCount = inputCount + 1;
+      var input = document.createElement("input");
+      input.type = "text";
+      input.className = "form-control input-des";
+      input.rows = "4";
+      input.maxLength = "150";
+      input.id = "inputDescription_" + inputCount;
+  
+      // Tạo phần tử p mới
+      var p = document.createElement("p");
+      p.className = "form-label";
+  
+      // Tạo phần tử div mới để chứa ô nhập
+      var div = document.createElement("div");
+  
+      // Chèn p vào div
+      div.appendChild(p);
+  
+      // Chèn input vào div
+      div.appendChild(input);
+  
+      // Tìm phần tử cha của ô nhập hiện tại
+      var currentInput = document.getElementById(`inputDescription_0`);
+  
+      // Chèn div vào sau ô nhập hiện tại
+      currentInput.parentNode.insertBefore(div, currentInput.nextSibling);
+    }
+  </script>
+  <!-- remove company -->
+  <script>
+    function removeParent(clickedElement) {
+      var parentDiv = clickedElement.closest('.col-company');
+      parentDiv.remove();
+    }
+  </script>
+  <!-- remove skill -->
+  <script>
+    function removeSkill(clickedElement) {
+      var parentDiv = clickedElement.closest('.col-skill');
+      parentDiv.remove();
+    }
+  </script>
+  <!-- remove education -->
+  <script>
+    function removeEducation(clickedElement) {
+      var parentDiv = clickedElement.closest('.col-education');
+      parentDiv.remove();
+    }
+  </script>
+  <!-- add Skill -->
+  <script>
+    var index = 1;
+    function themKynang() {
+      // Lấy giá trị từ trường input
+      var inputKynang = document.getElementById("input-skill").value;
+  
+      // Tạo div mới
+      var divMoi = document.createElement("div");
+      divMoi.setAttribute("data-tab", `${index++}`);
+      divMoi.id = "div_skill";
+      divMoi.className = "col-skill";
+      divMoi.innerHTML = "<b> - </b>" + inputKynang;
+  
+      // Tạo nút close
+      var closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.className = "close";
+      closeButton.innerHTML = "&times;";
+      closeButton.addEventListener("click", function (event) {
+        removeSkill(event.target);
+      });
+      // Chèn nút close vào div mới
+      divMoi.appendChild(closeButton);
+      // Tìm vị trí chứa div mới (trong trường hợp này, vị trí là "#value-experiences")
+      var container = document.getElementById("div_skill");
+      container.appendChild(divMoi);
+    }
+  </script>
+  <!-- add education -->
+  <script>
+    var index = 1;
+    function themTruongHoc() {
+      // Lấy giá trị từ các trường input
+      var tenTruong = document.getElementById("input_education_1").value;
+      var moTa = document.getElementById("input_education_2").value;
+  
+      // Tạo div mới
+      var divMoi = document.createElement("div");
+      divMoi.setAttribute("data-tab", `${index++}`);
+      divMoi.className = "listEducation col-education";
+      divMoi.innerHTML = "<b> - </b><strong>Nơi học: </strong>" + tenTruong + "<button type='button' class='close close-education' onclick=`removeEducation();`>&times;</button><br><strong class='ml-2'>Thành tích: </strong>" + moTa;
+  
+      // Thêm sự kiện onclick cho nút close
+      var closeButton = divMoi.querySelector(".close.close-education");
+      closeButton.addEventListener("click", function (event) {
+        removeEducation(event.target);
+      });
+  
+      divMoi.appendChild(closeButton);
+  
+      var container = document.querySelector(".col-education");
+      container.appendChild(divMoi);
+    }
+  </script>
+  <!-- add company -->
+  <script>
+    function themDuLieu() {
+      // Lấy giá trị từ các ô nhập
+      var tenKinhNghiem = document.getElementById("inputTenKinhNghiem").value;
+      var thoiGianBatDau = document.getElementById("inputThoiGianBatDau").value;
+      var thoiGianKetThuc = document.getElementById("inputThoiGianKetThuc").value;
+      var noiLamViec = document.getElementById("inputNoiLamViec").value;
+  
+      var moTaInputs = document.getElementsByClassName("form-control input-des");
+      var moTaValues = [];
+      for (var i = 0; i < moTaInputs.length; i++) {
+        moTaValues.push(moTaInputs[i].value);
+      }
+      // Tạo phần tử div mới
+      var div = document.createElement("div");
+      div.className = "col-4 col-company";
+  
+      // Tạo phần tử card-body mới
+      var cardBody = document.createElement("div");
+      cardBody.className = "card-body text-secondary";
+  
+      // Tạo phần tử button close mới
+      var closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.className = "close float-end";
+      closeButton.innerHTML = "&times;";
+      closeButton.addEventListener("click", function (event) {
+        removeParent(event.target);
+      });
+  
+      // Tạo phần tử h5 mới
+      var cardTitle = document.createElement("h5");
+      cardTitle.className = "card-title text-secondary";
+      cardTitle.textContent = tenKinhNghiem;
+  
+      // Tạo phần tử p1 mới
+      var p1 = document.createElement("p");
+      p1.className = "card-text";
+      p1.textContent = "Thời gian: " + thoiGianBatDau + " - " + thoiGianKetThuc;
+  
+      // Tạo phần tử p2 mới
+      var p2 = document.createElement("p");
+      p2.className = "card-text";
+      p2.textContent = "Nơi làm việc: " + noiLamViec;
+  
+      // Tạo phần tử p3 mới
+      var p3 = document.createElement("p");
+      p3.className = "card-text";
+      p3.textContent = "Mô tả: "
+  
+      // Tạo phần tử address mới
+      var address = document.createElement("address");
+  
+      // Tạo phần tử div1 mới trong address
+      var div1 = document.createElement("div");
+      for (var i = 0; i < moTaValues.length; i++) {
+        div1.dataset.tab = "1";
+        var innerDiv = document.createElement("div");
+        innerDiv.innerHTML = "<b> - </b> " + moTaValues[i];
+        div1.appendChild(innerDiv);
+      }
+      console.log("div1 ->", div1);
+      // Chèn div1 vào address
+      address.appendChild(div1);
+  
+      // Chèn closeButton vào cardBody
+      cardBody.appendChild(closeButton);
+  
+      // Chèn cardTitle vào cardBody
+      cardBody.appendChild(cardTitle);
+  
+      // Chèn p1 vào cardBody
+      cardBody.appendChild(p1);
+  
+      // Chèn p2 vào cardBody
+      cardBody.appendChild(p2);
+  
+      // Chèn p3 vào cardBody
+      cardBody.appendChild(p3);
+  
+      cardBody.appendChild(address);
+  
+      // Chèn cardBody vào div
+      div.appendChild(cardBody);
+  
+      // Tìm phần tử cha để chứa các div đã thêm
+      var container = document.getElementById("value-experiences");
+      container.style.display = "flex";
+  
+      // Chèn div vào container
+      container.appendChild(div);
+    }
+  </script>
+  <!-- modal edit - show data company -->
+  <script>
+    function showData() {
+      // Lấy toàn bộ dữ liệu có trong thẻ div đã click
+      var cardBody = document.querySelector('.col-company .card-body');
+      var title = cardBody.querySelector('.card-title').textContent;
+      var workplace = cardBody.querySelector('.text-address').textContent;
+      var description = cardBody.querySelector('.text-des').innerHTML;
+  
+      // Hiển thị dữ liệu trong modal chỉnh sửa
+      var modalTitle = document.querySelector('#editCompany .modal-title');
+      var inputTenKinhNghiem = document.querySelector('#editCompany #inputTenKinhNghiem');
+      var inputNoiLamViec = document.querySelector('#editCompany #inputNoiLamViec');
+      var inputDescription = document.querySelector('#editCompany #inputDescription_0');
+  
+      modalTitle.textContent = "Sửa kinh nghiệm";
+      inputTenKinhNghiem.value = title;
+      // Lấy giá trị thời gian bắt đầu và kết thúc từ chuỗi thời gian
+      inputNoiLamViec.value = workplace;
+      inputDescription.value = description;
+    }
+  </script>
+  
+  <script>
+    var index = 1;
+    function editCompany() {
+      // Lấy giá trị từ các trường input
+      var tenKinhNghiem = document.getElementById("inputTenKinhNghiem").value;
+      var thoiGianBatDau = document.getElementById("inputThoiGianBatDau").value;
+      var thoiGianKetThuc = document.getElementById("inputThoiGianKetThuc").value;
+      var noiLamViec = document.getElementById("inputNoiLamViec").value;
+      var moTaInputs = document.getElementsByClassName("form-control input-des");
+      var moTaValues = [];
+      for (var i = 0; i < moTaInputs.length; i++) {
+        moTaValues.push(moTaInputs[i].value);
+      }
+      // Tạo phần tử div mới
+      var div = document.createElement("div");
+      div.className = "col-4 col-company";
+  
+      // Tạo phần tử card-body mới
+      var cardBody = document.createElement("div");
+      cardBody.className = "card-body text-secondary";
+      // Tạo div mới
+      var divMoi = document.createElement("div");
+      divMoi.setAttribute("data-tab", `${index++}`);
+      divMoi.className = "listEducation col-education";
+  
+      var bElement = document.createElement("b");
+      bElement.textContent = " - ";
+      divMoi.appendChild(bElement);
+  
+      var strongElement1 = document.createElement("strong");
+      strongElement1.textContent = "Nơi học: ";
+      divMoi.appendChild(strongElement1);
+  
+      var tenTruongElement = document.createTextNode(tenTruong);
+      divMoi.appendChild(tenTruongElement);
+  
+      var closeButton = document.createElement("button");
+      closeButton.type = "button";
+      closeButton.className = "close close-education";
+      closeButton.innerHTML = "&times;";
+      closeButton.addEventListener("click", function (event) {
+        removeEducation(event.target);
+      });
+      divMoi.appendChild(closeButton);
+  
+      var brElement = document.createElement("br");
+      divMoi.appendChild(brElement);
+  
+      var strongElement2 = document.createElement("strong");
+      strongElement2.className = "ml-2";
+      strongElement2.textContent = "Thành tích: ";
+      divMoi.appendChild(strongElement2);
+  
+      var moTaElement = document.createTextNode(moTa);
+      divMoi.appendChild(moTaElement);
+  
+      var container = document.querySelector(".col-education");
+      container.innerHTML = ""; // Xóa nội dung hiện tại của container
+      container.appendChild(divMoi);
+    }
+  </script>

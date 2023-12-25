@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm danh</title>
+    <%-include('../../boostrap.ejs')%>
+</head>
+
+<body>
+    <%-include('../../navBar.ejs')%>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <%-include('../sideBarTeacher.ejs')%>
+
+            <!-- content-wrapper -->
+            <div class="content-wrapper">
+
+                <!-- Content Header (Page header) -->
+                <div class="card">
+                    <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1>Khoá học của tôi</h1>
+                                </div>
+                            </div>
+                        </div><!-- /.container-fluid -->
+                    </section>
+
+                    <section class="content">
+                        <div class="card-header">
+                            <h3 class="card-title">Danh sách khóa học</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-tripped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width:5%;">#</th>
+                                        <th style="width: 60%;">Khoá học</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="text-center">1</th>
+                                        <th>
+                                            <a href="/teacher/student/poin-student-2" class="text-decoration-none text-dark" class="text-decoration-none text-dark">
+                                                Luyện Tiếng Anh giao tiếp trực tuyến 1-1 GrabLingo
+                                            </a>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">2</th>
+                                        <th>
+                                            <a href="/teacher/student/poin-student-2" class="text-decoration-none text-dark">
+                                                Khóa học tiếng Anh online giao tiếp TOPICA Native
+                                            </a>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">3</th>
+                                        <th>
+                                            <a href="/teacher/student/poin-student-2" class="text-decoration-none text-dark">
+                                                Khóa học Anh văn online E-space
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+                
+            </div>
+            <!-- end-content-wrapper -->
+
+            <!-- ------------------------ Footer -----------------------------------------------------------   -->
+            <%-include('../../footer.ejs')%>
+</body>
+<%-include('../../styleJs.ejs')%>
+</html>

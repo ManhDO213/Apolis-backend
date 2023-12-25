@@ -1,0 +1,243 @@
+<div class="content-page">
+  <div class="content">
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-body p-1 pt-4">
+              <div class="card-body-action-course">
+                <!-- left column -->
+                <div class="col">
+                  <div id="loading" class="loading-container">
+                    <div class="loading-spinner">
+                      <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                  </div>
+
+                  <div id="dialog" class="dialog-container">
+                    <div class="dialog-content">
+                      <span id="dialog-message"></span>
+                      <button onclick="hideDialog()">Ok</button>
+                    </div>
+                  </div>
+                  <!-- form start -->
+                  <form id="uploadForm">
+                    <div class="d-none">
+                      <p id="catagory_id" class="catagory_id">
+                        <%= assignmentId %>
+                      </p>
+                    </div>
+                    <div id="card-question"></div>
+                    <div class="float-right mt-2 mb-3">
+                      <button
+                        type="button"
+                        class="btn btn-danger waves-effect waves-light"
+                      >
+                        Hủy
+                      </button>
+                      <button
+                        type="submit"
+                        class="btn btn-success waves-effect waves-light"
+                      >
+                        Thêm
+                      </button>
+                    </div>
+                  </form>
+                  <!-- /.card -->
+                </div>
+                <!--/.col (left) -->
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- content -->
+      </div>
+    </div>
+    <!-- container-fluid -->
+  </div>
+  <!-- content -->
+</div>
+
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
+<script src="/dist/js/demo.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+<script src="https://vjs.zencdn.net/7.15.4/video.js"></script>
+<script>
+  $(function () {
+    bsCustomFileInput.init();
+  });
+</script>
+
+<script>
+  var uploadForm = document.getElementById("card-question");
+  for (var i = 0; i < 30; i++) {
+    uploadForm.innerHTML += `<div class="class-input-document" data-class-id="${
+      i + 1
+    }">
+                                    <div class="container-quiz mt-2">
+                                    <div class="left-column-quiz">
+                                        <ul class="tab-header-quiz">
+                                        <li class="selected" data-tab="1">
+                                            Câu ${i + 1}
+                                        </li>
+                                        </ul>
+                                    </div>
+                                    <div class="right-column-quiz">
+                                        <div class="tab-content-course-quiz selected" data-tab="1">
+                                        <div>
+                                            <p class="form-label">Câu hỏi:</p>
+                                            <textarea  class="textarea-quiz quiz-question" rows="4" cols="50" maxlength="250"
+                                            required></textarea>
+                                            <div class="form-group">
+                                            <p class="form-label">
+                                                Đính kèm (Ảnh/Video/Âm thanh)
+                                            </p>
+                                            <input type="file" id="fileInput" class="quiz-file-input"
+                                                accept="image/*, video/*, audio/*" name="schedules[0].questions[0].media" />
+                                            </div>
+                                            <p class="form-label">Đáp án:</p>
+                                            <div class="quiz-answer">
+                                            <input type="radio" class="correct-question" name="correct-question-${
+                                              i + 1
+                                            }" checked
+                                                required>
+                                            <textarea class="textarea-quiz-answer" rows="4" cols="50" maxlength="170"
+                                                required></textarea>
+                                            </div>
+                                            <div class="quiz-answer">
+                                            <input type="radio" class="correct-question" name="correct-question-${
+                                              i + 1
+                                            }"
+                                                required>
+                                            <textarea class="textarea-quiz-answer" rows="4" cols="50" maxlength="170"
+                                                required></textarea>
+                                            </div>
+                                            <div class="quiz-answer">
+                                            <input type="radio" class="correct-question" name="correct-question-${
+                                              i + 1
+                                            }"
+                                                required>
+                                            <textarea class="textarea-quiz-answer" rows="4" cols="50" maxlength="170"
+                                                required></textarea>
+                                            </div>
+                                            <div class="quiz-answer">
+                                            <input type="radio" class="correct-question" name="correct-question-${
+                                              i + 1
+                                            }"
+                                                required>
+                                            <textarea class="textarea-quiz-answer" rows="4" cols="50" maxlength="170"
+                                                required></textarea>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    
+                                    </div>
+                                </div>`;
+  }
+</script>
+
+<script>
+  const baseURL = window.location.protocol + "//" + window.location.host;
+  const currentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var isSuccess = false;
+  const form = document.getElementById("uploadForm");
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var data = {};
+    const formData = new FormData();
+    const assignmentId = document.querySelector(".catagory_id").textContent;
+    data.assignmentId = assignmentId.trim().replace(/\s+/g, "");
+    data.questions = [];
+    ///quiz
+    const divDocumentElements = Array.from(
+      document.querySelectorAll(".class-input-document")
+    );
+    divDocumentElements.forEach((divElement) => {
+      const question = divElement.querySelector("textarea.quiz-question");
+      const answers = Array.from(
+        divElement.querySelectorAll("textarea.textarea-quiz-answer")
+      );
+      var radioButtons = divElement.querySelectorAll("input.correct-question");
+      var selectIndex = 0;
+      for (var i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[i].checked) {
+          selectIndex = i;
+          break;
+        }
+      }
+      var answerValues = [];
+      answers.forEach((answer, index) => {
+        var answerVal = {
+          value: answer.value,
+        };
+        if (selectIndex == index) {
+          answerVal.isCorrect = true;
+        } else {
+          answerVal.isCorrect = false;
+        }
+        answerValues.push(answerVal);
+      });
+
+      data.questions.push({
+        question: question.value,
+        answers: answerValues,
+      });
+    });
+
+    console.log("data: ", JSON.stringify(data));
+    formData.append("data", JSON.stringify(data));
+    showLoading();
+
+    fetch(`${baseURL}/admin/course/add-assigment`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        response.json().then((body) => {
+          const statusCode = response.status;
+          if (statusCode == 200) {
+            isSuccess = true;
+            hideLoading();
+            showDialog(body.message);
+          } else {
+            isSuccess = false;
+            hideLoading();
+            showDialog(body.message);
+          }
+        });
+      })
+      .catch((error) => {
+        isSuccess = false;
+        hideLoading();
+        showDialog("Lỗi: " + error);
+        console.error(error);
+      });
+  });
+
+  function showLoading() {
+    document.getElementById("loading").style.display = "block";
+  }
+
+  function hideLoading() {
+    document.getElementById("loading").style.display = "none";
+  }
+
+  function showDialog(message) {
+    document.getElementById("dialog-message").textContent = message;
+    document.getElementById("dialog").style.display = "block";
+  }
+
+  function hideDialog() {
+    document.getElementById("dialog").style.display = "none";
+    if (isSuccess) {
+      form.reset();
+      isSuccess = false;
+    }
+  }
+</script>

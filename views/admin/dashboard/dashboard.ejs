@@ -1,0 +1,275 @@
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title mt-0">Hoạt động</h4>
+
+                            <div class="widget-chart text-center">
+                                <div id="morris-donut-activity" dir="ltr" style="height: 245px" class="morris-chart">
+                                </div>
+                                <ul class="list-inline chart-detail-list mb-0"
+                                    style="display: flex;flex-direction: column;align-items: start;">
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #ff8acc">
+                                            <i class="fa fa-circle me-1"></i>Lượt tạo bài viết
+                                        </h5>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #5b69bc">
+                                            <i class="fa fa-circle me-1"></i>Lượt đăng ký khóa học
+                                        </h5>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #35b8e0">
+                                            <i class="fa fa-circle me-1"></i>Lượt tạo khóa học
+                                        </h5>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+
+                <div class="col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title mt-0">Tài khoản</h4>
+
+                            <div class="widget-chart text-center">
+                                <div id="morris-donut-quantity" dir="ltr" style="height: 245px" class="morris-chart">
+                                </div>
+                                <ul class="list-inline chart-detail-list mb-0" style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                  ">
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #ff8acc">
+                                            <i class="fa fa-circle me-1"></i>Số lượng giáo viên
+                                        </h5>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #5b69bc">
+                                            <i class="fa fa-circle me-1"></i>Số lượng học viên
+                                        </h5>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #35b8e0">
+                                            <i class="fa fa-circle me-1"></i>Số lượng khóa học
+                                        </h5>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+
+                <div class="col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title mt-0">Khóa học</h4>
+
+                            <div class="widget-chart text-center">
+                                <div id="morris-donut-course" dir="ltr" style="height: 245px" class="morris-chart">
+                                </div>
+                                <ul class="list-inline chart-detail-list mb-0" style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                  ">
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #ff8acc">
+                                            <i class="fa fa-circle me-1"></i>Khóa học đang hoạt động
+                                        </h5>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #5b69bc">
+                                            <i class="fa fa-circle me-1"></i>Khóa học hoàn thành
+                                        </h5>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #35b8e0">
+                                            <i class="fa fa-circle me-1"></i>Khóa học chờ phê duyệt
+                                        </h5>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h5 style="color: #ff1744">
+                                            <i class="fa fa-circle me-1"></i>Khóa học đã từ chối
+                                        </h5>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title mb-3">Điểm tương tác</h4>
+
+                            <div class="inbox-widget">
+                                <% listUser.forEach((item, index)=> { %>
+                                    <div class="inbox-item">
+                                        <a href="#">
+                                            <div class="inbox-item-img">
+                                                <img src="<%= item.profile.avatarUrl %>" class="rounded-circle"
+                                                    alt="" />
+                                            </div>
+                                            <h5 class="inbox-item-author mt-0 mb-1">
+                                                <%= item.profile.name %>
+                                            </h5>
+                                            <p class="inbox-item-text">
+                                                <%= item.email %>
+                                            </p>
+                                            <p class="inbox-item-date">
+                                                <%= 2333 - index %>
+                                            </p>
+                                        </a>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title mt-0 mb-3">
+                                Khóa học đăng ký nhiều nhất
+                            </h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tên khóa học</th>
+                                            <th style="min-width: 130px;">Học phí (Xu)</th>
+                                            <th>Thể loại</th>
+                                            <th>Trạng thái</th>
+                                            <th style="min-width: 100px;">Số lượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% listCourse.forEach((item, index)=> { %>
+                                            <div class="inbox-item">
+                                                <tr>
+                                                    <td>
+                                                        <%= index + 1 %>
+                                                    </td>
+                                                    <td>
+                                                        <%= item.name %>
+                                                    </td>
+                                                    <td style="min-width: 130px;">
+                                                        <%= item.feeCoin %>
+                                                    </td>
+                                                    <td>
+                                                        <%= item.category %>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge bg-success">Đang hoạt động</span>
+                                                    </td>
+                                                    <td style="min-width: 100px;">
+                                                        <%= 48 - index %>
+                                                    </td>
+                                                </tr>
+                                            </div>
+                                            <% }) %>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+            <h4 class="header-title mt-0 mb-3">Doanh thu tuần này</h4>
+            <div class="row">
+                <% revenue.days.forEach((item, index)=> {
+                    var dateObj = new Date(item._id);
+
+                    var dayOfWeek = dateObj.toLocaleDateString("vi-VN", { weekday: "long" });
+                    %>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body widget-user">
+                                <div class="text-center">
+                                    <h2 class="fw-normal text-primary" data-plugin="counterup">
+                                        <%= item.totalAmount %>
+                                    </h2>
+                                    <h5>
+                                        <%= dayOfWeek %>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <% }) %>
+            </div>
+
+            <h4 class="header-title mt-0 mb-3">Doanh thu năm nay</h4>
+            <div class="row">
+                <% revenue.months.forEach((item, index)=> {
+                    var dateString = item._id;
+                    var month = new Date(dateString + '-01').toLocaleString('vi-VN', { month: 'long' });
+                    %>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body widget-user">
+                                <div class="text-center">
+                                    <h2 class="fw-normal text-primary" data-plugin="counterup">
+                                        <%= item.totalRevenue %>
+                                    </h2>
+                                    <h5>
+                                        <%= month %>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <% }) %>
+            </div>
+
+            <h4 class="header-title mt-0 mb-3">Doanh thu các năm gần đây</h4>
+            <div class="row">
+                <% revenue.years.forEach((item, index)=> {%>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body widget-user">
+                                <div class="text-center">
+                                    <h2 class="fw-normal text-primary" data-plugin="counterup">
+                                        <%= item.totalRevenue %>
+                                    </h2>
+                                    <h5>
+                                        Năm <%= item._id %>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- content -->
+</div>

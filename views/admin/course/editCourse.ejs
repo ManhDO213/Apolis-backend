@@ -1,0 +1,853 @@
+<div class="content-page">
+  <div class="content">
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-body p-1 pt-4">
+              <div class="card-body-action-course">
+                <!-- left column -->
+                <div class="col">
+                  <div id="loading" class="loading-container">
+                    <div class="loading-spinner">
+                      <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                  </div>
+
+                  <div id="dialog" class="dialog-container">
+                    <div class="dialog-content">
+                      <span id="dialog-message"></span>
+                      <button onclick="hideDialog()">Ok</button>
+                    </div>
+                  </div>
+                  <!-- form start -->
+                  <form id="uploadForm">
+                    <div>
+                      <div class="row">
+                      
+                        <div class="form-group col-12">
+                          <label for="name_course">Tên khoá học</label>
+                          <input type="text" class="form-control" placeholder="" id="course-name"
+                           required value="<%= course.course.name %>" />
+                        </div>
+                        <div class="form-group col-3 d-none">
+                          <p class="teacher-info" id="teacher-info"><%= info._id %></p>
+                        </div>
+                        <div class="form-group col-6">
+                          <label for="categories">Thể Loại</label>
+                          <select id="categories" class="form-control" required>
+                              <option value="" disabled>Chọn thể loại</option>
+                              <% listCategory.forEach( (row)=>{%>
+                                  <% if(row === course.course.category) { %>
+                                      <option value="<%= row %>" selected>
+                                          <%= row %>
+                                        </option>
+                                      <% } else { %>
+                                          <option value="<%= row %>">
+                                              <%= row %>
+                                            </option>
+                                          <% }  %>
+                              <% } ) %>
+                          </select>
+                        </div>
+                        <div class="form-group col-6">
+                          <label for="session">Số buổi học</label>
+                          <input disabled type="number" value="10" class="form-control" id="total-session"
+                            placeholder="Tổng số buổi học" required />
+                        </div>
+                        <div class="form-group col-6">
+                          <label for="fee">Học phí</label>
+                          <input type="number" class="form-control" id="course-fee" value="<%= course.course.feeCoin %>" required />
+                        </div>
+                        <div class="form-group col-6">
+                          <label for="fee">Giảm giá (%)</label>
+                          <input type="number" max="100" class="form-control" id="course-discount" value="<%= course.course.discount %>" required />
+                        </div>
+                      </div>
+                      <div class="border border-2 rounded rounded-2 p-3 mb-2">
+                        <div class="form-group">
+                          <label for="fileInput" class="form-label">Chọn 1 hoặc nhiều ảnh giới thiệu</label>
+                          <input type="file" class="form-control" id="course-media" name="mediaCourse[]"
+                            accept="image/*" multiple required />
+                        </div>
+                        <div id="preview" class="file-container">
+                          <!-- Ảnh và video sẽ được hiển thị ở đây -->
+                        </div>
+                      </div>
+                      <div class="border border-2 rounded rounded-2 p-3 mb-2">
+                        <div class="form-group">
+                          <label for="videoUrls" class="form-label">Video giới thiệu</label>
+                          <input type="text" class="form-control" id="video-course-media" value="<%= course.course.videoUrls %>"/>
+                        </div>
+                        <div id="preview" class="file-container">
+                          <!-- Ảnh và video sẽ được hiển thị ở đây -->
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="description">Mô tả khoá học</label>
+                        <textarea class="form-control p-4" id="course-description" cols="30" rows="5"
+                          required><%= course.course.description %></textarea>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-4">
+                          <label for="link">Link google meet</label>
+                          <input type="text" class="form-control" id="course-googleMeet" 
+                          value="<%= course.cycle_courses.googleMeetUrl %>"
+                          required />
+                        </div>
+                        <div class="form-group col-4">
+                          <label for="minimum">Tối thiểu học viên</label>
+                          <input disabled type="number" class="form-control" id="minimum-student" placeholder="Số lượng" 
+                            value="<%= course.cycle_courses.minStudent %>"
+                            required />
+                        </div>
+                        <div class="form-group col-4">
+                          <label for="maximum">Tối đa học viên</label>
+                          <input disabled type="number" class="form-control" id="maximum-student" placeholder="Số lượng"
+                            value="<%= course.cycle_courses.maxStudent %>"
+                            required />
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-6">
+                          <%
+                          const formatDate = (dateString) => {
+                            const date = new Date(dateString);
+                            const year = date.getFullYear();
+                            const month = String(date.getMonth() + 1).padStart(2, '0');
+                            const day = String(date.getDate()).padStart(2, '0');
+                            return `${year}-${month}-${day}`;
+                          };
+                          %>
+                          <!-- Initial set of inputs for the first class -->
+                          <label for="" class="form-label">Thời gian mở bán</label>
+                          <div class="mb-3 border border-2 rounded rounded-2 p-3" data-class-id="1">
+                            <p for="" class="form-label">Từ ngày:</p>
+                            <input type="date" class="form-control" id="time-sell-start" required 
+                            value="<%= formatDate(course.cycle_courses.registrationPeriod.startDate)%>" />
+                            <p for="" class="form-label">Đến ngày</p>
+                            <input type="date" class="form-control" id="time-sell-end" required 
+                            value="<%= formatDate(course.cycle_courses.registrationPeriod.endDate)%>"/>
+                          </div>
+                        </div>
+                        <div class="form-group col-6">
+                          <label for="" class="form-label">Thời gian giảng dạy</label>
+                          <div class="mb-3 border border-2 rounded rounded-2 p-3" data-class-id="1">
+                            <p for="" class="form-label">Từ ngày:</p>
+                            <input type="date" class="form-control" id="time-learn-start" required 
+                            value="<%= formatDate(course.cycle_courses.startDate) %>"/>
+                            <p for="" class="form-label">Đến ngày</p>
+                            <input type="date" class="form-control" id="time-learn-end" required 
+                            value="<%= formatDate(course.cycle_courses.endDate) %>"/>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card">
+                        <div class="card-body">
+                            <section class="content"
+                                style="padding-left: 15px;padding-right:15px;flex-direction: column;display: flex;">
+                                <h4>Lịch học</h4>
+
+                                <div class="accordion custom-accordion" id="custom-accordion-one">
+                                    <div class="card mb-0">
+                                      <%
+                                      const formatDate2 = (dateString) => {
+                                        const date = new Date(dateString);
+                                        const year = date.getFullYear();
+                                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                                        const day = String(date.getDate()).padStart(2, '0');
+                                        const hours = String(date.getHours()).padStart(2, '0');
+                                        const minutes = String(date.getMinutes()).padStart(2, '0');
+                                        return `${year}-${month}-${day}T${hours}:${minutes}`;
+                                      };
+                                      %>
+                                        <% course.schedules.forEach((value, index)=> { %>
+                                        <div class="card-header" id="headingNine">
+                                            <h6 class="m-0 position-relative">
+                                                <a class="custom-accordion-title text-reset d-block collapsed"
+                                                    data-bs-toggle="collapse" href="#collapseNine<%= index %>" aria-expanded="false"
+                                                    aria-controls="collapseNine">
+                                                    Buổi học số <%= value.session %>
+                                                    <i class="mdi mdi-chevron-down accordion-arrow"></i>
+                                                </a>
+                                            </h6>
+                                        </div>
+
+                                        <div id="collapseNine<%= index %>" class="collapse" aria-labelledby="headingFour"
+                                            data-bs-parent="#custom-accordion-one">
+                                            <div class="card-body">
+                                                <div class="row mt-2">
+                                                  <div class="form-group col-6">
+                                                    <label for="" class="form-label">Thời gian bắt đầu</label>
+                                                    <input type="datetime-local" class="form-control start-schedule-time" 
+                                                    value="<%= formatDate2(value.startDate) %>"
+                                                    required />
+                                                  </div>
+                                                  <div class="form-group col-6">
+                                                    <label for="" class="form-label">Thời gian kết thúc</label>
+                                                    <input type="datetime-local" class="form-control end-schedule-time" 
+                                                    value="<%= formatDate2(value.endDate) %>"
+                                                    required />
+                                                  </div>
+                                                  <div class="form-group col-12">
+                                                    <label for="" class="form-label">Nội dung </label>
+                                                    <textarea class="form-control p-4" id="course-description" cols="30" rows="5"
+                                                    required><%= value.description %></textarea>
+                                                  </div>
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                        <% }) %>                                        
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                      </div>
+
+                      <div class="card">
+                        <div class="card-body">
+                            <section class="content"
+                                style="padding-left: 15px;padding-right:15px;flex-direction: column;display: flex;">
+                                <h4>Bài giảng</h4>
+
+                                <div class="accordion custom-accordion" id="custom-accordion-one">
+                                    <% function getId(url) {
+                                        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+                                        const match = url.match(regExp);
+                                        return (match && match[2].length === 11)
+                                          ? match[2]
+                                          : null;
+                                    } %>
+                                    <% course.document_courses.forEach((value, index)=> { %>
+                                        <div class="card mb-0">
+                                            <div class="card-header" id="headingNine">
+                                                <h6 class="m-0 position-relative">
+                                                    <a class="custom-accordion-title text-reset d-block collapsed"
+                                                        data-bs-toggle="collapse" href="#collapseNine<%= index %>"
+                                                        aria-expanded="false" aria-controls="collapseNine">
+                                                        <%= value.documents[0].title %> <i
+                                                                class="mdi mdi-chevron-down accordion-arrow"></i>
+                                                    </a>
+                                                </h6>
+                                            </div>
+
+                                            <div id="collapseNine<%= index %>" class="collapse" aria-labelledby="headingFour"
+                                                data-bs-parent="#custom-accordion-one">
+                                                <div class="card-body">
+                                                  <label for="description" class="form-label">Tiêu đề bài học</label>
+                                                  <input type="text" class="form-control p-4 schedule-title" 
+                                                  value="<%= value.documents[0].title %>"
+                                                  required></input>
+                                                  <label for="description" class="form-label">Nội dung buổi học</label>
+                                                  <textarea class="form-control p-4 schedule-description" cols="30" rows="5"
+                                                    required><%= value.documents[0].description %></textarea>
+                                                  <label for="fileInput" class="form-label">Tài liệu</label>
+                                                  <input type="file" class="form-control course-document" accept=".pdf, .docx, .txt"
+                                                    required />
+                    
+                                                  <label for="video" class="form-label">Link video</label>
+                                                  <input type="text" class="form-control schedule-video" 
+                                                  value="<%= value.documents[0].url %>"
+                                                  required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                            <!--  -->
+                                </div>
+                            </section>
+                        </div>
+                      </div>
+                      
+                      <div class="card">
+                        <div class="card-body">
+                            <section class="content"
+                                style="padding-left: 15px;padding-right:15px;flex-direction: column;display: flex;">
+                                <h4>Quiz</h4>
+
+                                <div class="accordion custom-accordion" id="custom-accordion-one">
+                                    <!--  -->
+                                    <ul class="nav nav-tabs">
+                                        <% course.course.quizes_courses.forEach((value, index)=> { %>
+                                            <li class="nav-item">
+                                                <a href="#quiz-<%= value.session %>" data-bs-toggle="tab"
+                                                    aria-expanded="false"
+                                                    class="nav-link <%= index === 0 ? 'active' : '' %>">
+                                                    Quiz <%= value.session %>
+                                                </a>
+                                            </li>
+                                            <% }) %>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <% course.course.quizes_courses.forEach((value, index)=> {
+                                            var sttQuestion = 0;
+                                            %>
+                                            <div class="tab-pane <%= index === 0 ? 'show active' : '' %>"
+                                                id="quiz-<%= value.session %>">
+                                                <% course.course.question_courses.forEach((item, indexSecond)=> { %>
+                                                    <% if (value._id.toString()==item.courseQuizId.toString()) {
+                                                        sttQuestion++; %>
+                                                        <div class="card mb-0">
+                                                            <div class="card-header" id="headingNine">
+                                                                <h6 class="m-0 position-relative">
+                                                                    <a class="custom-accordion-title text-reset d-block collapsed"
+                                                                        data-bs-toggle="collapse"
+                                                                        href="#collapseNine<%= index %><%= indexSecond %>"
+                                                                        aria-expanded="false"
+                                                                        aria-controls="collapseNine">
+                                                                        Câu hỏi <%= sttQuestion %> <i
+                                                                                class="mdi mdi-chevron-down accordion-arrow"></i>
+                                                                    </a>
+                                                                </h6>
+                                                            </div>
+
+                                                            <div id="collapseNine<%= index %><%= indexSecond %>"
+                                                                class="collapse" aria-labelledby="headingFour"
+                                                                data-bs-parent="#custom-accordion-one">
+                                                                <div class="card-body">
+                                                                   
+                                                                  <div class="right-column-quiz">
+                                                                    <div class="tab-content-course-quiz selected" data-tab="1">
+                                                                      <div>
+                                                                        <p class="form-label">Câu hỏi:</p>
+                                                                        <textarea class="textarea-quiz quiz-question" rows="4" cols="50" maxlength="250"
+                                                                          required><%= item.question %></textarea>
+                                                                        <div class="form-group">
+                                                                          <p class="form-label">
+                                                                            Đính kèm (Ảnh/Video/Âm thanh)
+                                                                          </p>
+                                                                          <input type="file" id="fileInput" class="quiz-file-input"
+                                                                            accept="image/*, video/*, audio/*" name="schedules[0].questions[0].media" />
+                                                                        </div>
+                                                                        <p class="form-label">Đáp án:</p>
+                                                                        <% item.answers.forEach((answer, indexAnswer)=> { %>
+                                                                        <div class="quiz-answer">
+                                                                          <input type="radio"
+                                                                              id="customRadio<%= index %><%= indexSecond %><%= indexAnswer %>"
+                                                                              name="customRadio<%= index %><%= indexSecond %>"
+                                                                              class="correct-question"  <% if
+                                                                              (answer.isCorrect) { %>
+                                                                          checked
+                                                                          <% } %>
+                                                                              >
+                                                                          <textarea class="textarea-quiz-answer" rows="4" cols="50" maxlength="170"
+                                                                            required><%= answer.value %></textarea>
+                                                                        </div>
+                                                                        <% }) %>
+                                                                        
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
+                                                            <% }) %>
+                                            </div>
+                                            <% }) %>
+                                    </div>
+                                    <!--  -->
+                                </div>
+                            </section>
+                        </div>
+                      </div>
+                                        
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="float-right mt-2 mb-3">
+                      <button type="button" class="btn btn-danger waves-effect waves-light">Hủy</button>
+                      <button type="submit" class="btn btn-success waves-effect waves-light">Sửa</button>
+                    </div>
+                  </form>
+                  <!-- /.card -->
+                </div>
+                <!--/.col (left) -->
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div> <!-- content -->
+      </div>
+    </div> <!-- container-fluid -->
+  </div> <!-- content -->
+</div>
+
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="/dist/js/adminlte.min.js"></script>
+<script src="/dist/js/demo.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+<script src="https://vjs.zencdn.net/7.15.4/video.js"></script>
+<script>
+  $(function () {
+    bsCustomFileInput.init();
+  });
+</script>
+
+<script>
+  let nextTabId = 2;
+
+  function createTab() {
+    if (nextTabId > document.getElementById("total-session").value) {
+      console.log("Buổi học đã quá số lượng mà bạn chọn");
+      return;
+    }
+
+    const tabId = nextTabId;
+    const tabContainer = document.createElement("div");
+    tabContainer.className = "tab";
+    tabContainer.setAttribute("data-tab", tabId);
+    tabContainer.textContent = "Buổi " + tabId;
+    tabContainer.addEventListener("click", () => {
+      showTab(tabId);
+    });
+
+    const tabContent = document.createElement("div");
+    tabContent.className = "tab-content-course";
+    tabContent.setAttribute("data-tab", tabId);
+    tabContent.innerHTML = `
+                          <div
+                            id="dynamicInputContainer"
+                            class="border border-2 rounded rounded-2 p-3"
+                          >
+                            <div class="class-input-document" data-class-id="1">
+                              <label for="description" class="form-label">Tiêu đề bài học</label>
+                                <input type="text" class="form-control p-4 schedule-title" 
+                                  required></input>
+                                <label for="description" class="form-label">Nội dung buổi học</label>
+                                <textarea class="form-control p-4 schedule-description" cols="30" rows="5"
+                                  required></textarea>
+                              <label for="fileInput" class="form-label"
+                                >Tài liệu</label
+                              >
+                              <input
+                                type="file"
+                                class="form-control course-document"
+                                accept=".pdf, .docx, .txt"
+                                required
+                              />
+  
+                              <label for="video" class="form-label"
+                                >Link video</label
+                              >
+                              <input
+                                type="text"
+                                class="form-control schedule-video"
+                                required
+                              />
+                              <div class="row mt-2">
+                                <div class="form-group col-6">
+                                  <label for="" class="form-label"
+                                    >Thời gian bắt đầu</label
+                                  >
+                                  <input
+                                    type="datetime-local"
+                                    class="form-control start-schedule-time"
+                                    required
+                                  />
+                                </div>
+                                <div class="form-group col-6">
+                                  <label for="" class="form-label"
+                                    >Thời gian kết thúc</label
+                                  >
+                                  <input
+                                    type="datetime-local"
+                                    class="form-control end-schedule-time"
+                                    required
+                                  />
+                                </div>
+                              </div>
+  
+                              <label for="fileInput" class="form-label">Quiz</label>
+  
+                              <div class="container-quiz">
+                                <div class="left-column-quiz">
+                                  <ul class="tab-header-quiz">
+                                    <li onclick="showTabQuiz(${tabId}, 1)" class="selected" data-tab="1">
+                                      Câu 1
+                                    </li>
+                                  </ul>
+                                  <button onclick="createTabQuiz(${tabId})" type="button" class="btn btn-success mt-2 add-tab-quiz" data-tab="${tabId}">
+                                    Thêm
+                                  </button>
+                                </div>
+  
+                                <div class="right-column-quiz">
+                                  <div class="tab-content-course-quiz selected" data-tab="1">
+                                    <div>
+                                      <p class="form-label">Câu hỏi:</p>
+                                      <textarea class="textarea-quiz quiz-question" rows="4" cols="50" maxlength="250" required></textarea>
+                                      <div class="form-group">
+                                        <p class="form-label">Đính kèm (Ảnh/Video/Âm thanh)</p>
+                                        <input type="file" id="fileInput" class="quiz-file-input"
+                                          accept="image/*, video/*, audio/*">
+                                      </div>
+                                      <p class="form-label">Đáp án:</p>
+                                      <div class="quiz-answer">
+                                        <input type="radio" class="correct-question" name="correct-question-${tabId}-1" checked required>
+                                        <textarea class="textarea-quiz-answer" rows="4" cols="50"
+                                          maxlength="170" required></textarea>
+                                      </div>
+                                      <div class="quiz-answer">
+                                        <input type="radio" class="correct-question" name="correct-question-${tabId}-1" required>
+                                        <textarea class="textarea-quiz-answer" rows="4" cols="50"
+                                          maxlength="170" required></textarea>
+                                      </div>
+                                      <div class="quiz-answer">
+                                        <input type="radio" class="correct-question" name="correct-question-${tabId}-1" required>
+                                        <textarea class="textarea-quiz-answer" rows="4" cols="50"
+                                          maxlength="170" required></textarea>
+                                      </div>
+                                      <div class="quiz-answer">
+                                        <input type="radio" class="correct-question" name="correct-question-${tabId}-1" required>
+                                        <textarea class="textarea-quiz-answer" rows="4" cols="50"
+                                          maxlength="170" required></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+      `;
+
+    const tabBar = document.querySelector(".tab-bar");
+    const tabBarContainer = document.querySelector(".tab-bar-container");
+    tabBar.appendChild(tabContainer);
+    tabBarContainer.appendChild(tabContent);
+    showTab(tabId);
+    nextTabId++;
+  }
+
+  function showTab(tabId) {
+    const tabs = document.querySelectorAll(".tab");
+    const tabContents = document.querySelectorAll(".tab-content-course");
+
+    tabs.forEach((tab) => {
+      if (tab.getAttribute("data-tab") == tabId) {
+        tab.classList.add("active");
+      } else {
+        tab.classList.remove("active");
+      }
+    });
+
+    tabContents.forEach((content) => {
+      if (content.getAttribute("data-tab") == tabId) {
+        content.classList.add("active");
+      } else {
+        content.classList.remove("active");
+      }
+    });
+  }
+
+  document.getElementById("add-tab").addEventListener("click", createTab);
+</script>
+
+<script>
+  function createTabQuiz(tabScheduleId) {
+    const divElement = document.querySelector(
+      `div.tab-content-course[data-tab="${tabScheduleId}"]`
+    );
+    var tabQuiz = 0;
+
+    if (divElement) {
+      const ulElement = divElement.querySelector("ul.tab-header-quiz");
+      if (ulElement) {
+        const liElements = ulElement.querySelectorAll("li");
+        const liCount = liElements.length;
+
+        const tabContainer = document.createElement("li");
+        tabContainer.setAttribute("data-tab", liCount + 1);
+        tabContainer.textContent = "Câu " + (liCount + 1);
+        tabContainer.addEventListener("click", () => {
+          showTabQuiz(tabScheduleId, liCount + 1);
+        });
+        ulElement.appendChild(tabContainer);
+        tabQuiz = liCount + 1;
+      }
+
+      const divContentElement = divElement.querySelector(
+        "div.right-column-quiz"
+      );
+      if (divContentElement) {
+        const divElements = divContentElement.querySelectorAll(
+          "div.tab-content-course-quiz"
+        );
+        const divCount = divElements.length;
+
+        const tabContentQuiz = document.createElement("div");
+        tabContentQuiz.className = "tab-content-course-quiz";
+        tabContentQuiz.setAttribute("data-tab", divCount + 1);
+        tabContentQuiz.innerHTML = `<div>
+                                      <p class="form-label">Câu hỏi:</p>
+                                      <textarea class="textarea-quiz quiz-question" rows="4" cols="50" maxlength="250" required></textarea>
+                                      <div class="form-group">
+                                        <p class="form-label">
+                                          Đính kèm (Ảnh/Video/Âm thanh)
+                                        </p>
+                                        <input type="file" id="fileInput" class="quiz-file-input"
+                                          accept="image/*, video/*, audio/*" />
+                                      </div>
+                                      <p class="form-label">Đáp án:</p>
+                                      <div class="quiz-answer">
+                                        <input type="radio" class="correct-question" name="correct-question-${tabScheduleId}-${divCount + 1}" checked required>
+                                        <textarea class="textarea-quiz-answer" rows="4" cols="50"
+                                          maxlength="170" required></textarea>
+                                      </div>
+                                      <div class="quiz-answer">
+                                        <input type="radio" class="correct-question" name="correct-question-${tabScheduleId}-${divCount + 1}" required>
+                                        <textarea class="textarea-quiz-answer" rows="4" cols="50"
+                                          maxlength="170" required></textarea>
+                                      </div>
+                                      <div class="quiz-answer">
+                                        <input type="radio" class="correct-question" name="correct-question-${tabScheduleId}-${divCount + 1}" required>
+                                        <textarea class="textarea-quiz-answer" rows="4" cols="50"
+                                          maxlength="170" required></textarea>
+                                      </div>
+                                      <div class="quiz-answer">
+                                        <input type="radio" class="correct-question" name="correct-question-${tabScheduleId}-${divCount + 1}" required>
+                                        <textarea class="textarea-quiz-answer" rows="4" cols="50"
+                                          maxlength="170" required></textarea>
+                                      </div>
+                                    </div>`;
+        divContentElement.appendChild(tabContentQuiz);
+      }
+    }
+    showTabQuiz(tabScheduleId, tabQuiz);
+  }
+
+  function showTabQuiz(tabId, tabQuizId) {
+    const divElement = document.querySelector(
+      `div.tab-content-course[data-tab="${tabId}"]`
+    );
+    if (divElement) {
+      const ulElement = divElement.querySelector("ul.tab-header-quiz");
+      if (ulElement) {
+        const tabs = ulElement.querySelectorAll("li");
+        tabs.forEach((tab) => {
+          if (tab.getAttribute("data-tab") == tabQuizId) {
+            tab.classList.add("selected");
+          } else {
+            tab.classList.remove("selected");
+          }
+        });
+      }
+
+      const divContentElement = divElement.querySelector(
+        "div.right-column-quiz"
+      );
+      if (divContentElement) {
+        const tabContents = document.querySelectorAll(".tab-content-course-quiz");
+        tabContents.forEach((content) => {
+          if (content.getAttribute("data-tab") == tabQuizId) {
+            content.classList.add("selected");
+          } else {
+            content.classList.remove("selected");
+          }
+        });
+      }
+    }
+  }
+</script>
+
+<script>
+  const baseURL = window.location.protocol + '//' + window.location.host;
+  const currentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  var isSuccess = false;
+  const form = document.getElementById('uploadForm');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    var objectJson = {};
+    const formData = new FormData();
+
+    ///teacher
+    const teacherInfo = document.querySelector('.teacher-info').textContent;
+    console.log("id teacher -> ", teacherInfo);
+    objectJson.teacherAccountId = teacherInfo;
+
+    ///course name
+    const courseName = document.getElementById('course-name');
+    objectJson.name = courseName.value;
+
+    ///course category
+    const category = document.getElementById('categories');
+    objectJson.category = category.value;
+
+    ///total-session
+    const totalSession = document.getElementById('total-session');
+    objectJson.totalSession = totalSession.value;
+
+    ///course fee
+    const courseFee = document.getElementById('course-fee');
+    objectJson.feeCoin = courseFee.value;
+
+    ///course discount
+    const courseDiscount = document.getElementById('course-discount');
+    objectJson.discount = courseDiscount.value;
+
+    /// course file
+    const fileCourseMedia = document.getElementById('course-media');
+    const fileMedias = fileCourseMedia.files;
+    for (let i = 0; i < fileMedias.length; i++) {
+      formData.append('mediaCourse', fileMedias[i]);
+    }
+
+    /// course file video
+    const fileCourseVideo = document.getElementById('video-course-media');
+    objectJson.videoUrls = fileCourseVideo.value;
+
+    ///course description
+    const courseDescription = document.getElementById('course-description');
+    objectJson.description = courseDescription.value;
+
+    ///course googleMeet
+    const courseGoogleMeet = document.getElementById('course-googleMeet');
+    objectJson.googleMeetUrl = courseGoogleMeet.value;
+
+    ///minimum student
+    const minimumStudent = document.getElementById('minimum-student');
+    objectJson.minStudent = minimumStudent.value;
+
+    ///maximum student
+    const maximumStudent = document.getElementById('maximum-student');
+    objectJson.maxStudent = maximumStudent.value;
+
+    ///time sell start+end
+    const timeSellStart = document.getElementById('time-sell-start');
+    const timeSellEnd = document.getElementById('time-sell-end');
+    objectJson.registrationPeriod = {
+      startDate: timeSellStart.value,
+      endDate: timeSellEnd.value
+    };
+
+    ///time learn start+end
+    const timeLearnStart = document.getElementById('time-learn-start');
+    const timeLearnEnd = document.getElementById('time-learn-end');
+    objectJson.startDate = timeLearnStart.value;
+    objectJson.endDate = timeLearnEnd.value;
+
+    ///course schedule document
+    const divDocumentElements = Array.from(document.querySelectorAll('.class-input-document'));
+    divDocumentElements.sort((a, b) => {
+      const classIdA = parseInt(a.getAttribute('data-class-id'));
+      const classIdB = parseInt(b.getAttribute('data-class-id'));
+      return classIdA - classIdB;
+    });
+
+    const fileValues = [];
+    divDocumentElements.forEach((divElement) => {
+      const input = divElement.querySelector('input.course-document');
+      fileValues.push(input.files[0]);
+    });
+
+    fileValues.forEach((file) => {
+      formData.append('scheduleDocumentFile', file);
+    });
+
+    ///lesson schedule time
+    objectJson.schedule = [];
+    divDocumentElements.forEach((divElement) => {
+      const inputStartLesson = divElement.querySelector('input.start-schedule-time');
+      const inputEndLesson = divElement.querySelector('input.end-schedule-time');
+      const inputTitle = divElement.querySelector('input.schedule-title');
+      const inputVideo = divElement.querySelector('input.schedule-video');
+      const inputDescription = divElement.querySelector('textarea.schedule-description');
+      objectJson.schedule.push({ title: inputTitle.value, description: inputDescription.value, startTime: inputStartLesson.value, endTime: inputEndLesson.value, url: inputVideo.value });
+    });
+
+    ///quiz
+    objectJson.quizs = [];
+    divDocumentElements.forEach((divElement) => {
+      const tabsContentQuiz = Array.from(divElement.querySelectorAll('div.tab-content-course-quiz'));
+      tabsContentQuiz.sort((a, b) => {
+        const classIdA = parseInt(a.getAttribute('data-tab'));
+        const classIdB = parseInt(b.getAttribute('data-tab'));
+        return classIdA - classIdB;
+      });
+      var quiz = [];
+      tabsContentQuiz.forEach((tabContentQuiz) => {
+        const question = tabContentQuiz.querySelector('textarea.quiz-question');
+        const answers = Array.from(tabContentQuiz.querySelectorAll('textarea.textarea-quiz-answer'));
+        var answerValues = [];
+        answers.forEach((answer) => {
+          answerValues.push(answer.value);
+        });
+        var radioButtons = tabContentQuiz.querySelectorAll('input.correct-question');
+        var selectIndex = 0;
+        for (var i = 0; i < radioButtons.length; i++) {
+          if (radioButtons[i].checked) {
+            selectIndex = i;
+            break;
+          }
+        }
+        const quizFile = tabContentQuiz.querySelector('input.quiz-file-input');
+        quiz.push({ question: question.value, answers: answerValues, correctIndex: selectIndex, hasFile: quizFile.files.length > 0 });
+        if (quizFile.files.length > 0) {
+          formData.append('arraysQuizFile', quizFile.files[0]);
+        }
+      });
+      objectJson.quizs.push(quiz);
+    });
+
+    objectJson.timeZone = currentTimezone;
+
+    console.log('objectJson: ', objectJson);
+    formData.append('data', JSON.stringify(objectJson));
+    showLoading();
+
+    fetch(`${baseURL}/teacher/course/add-course`, {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => {
+        response.json().then(body => {
+          const statusCode = response.status;
+          if (statusCode == 200) {
+            isSuccess = true;
+            hideLoading();
+            showDialog(body.message);
+          } else {
+            isSuccess = false;
+            hideLoading();
+            showDialog(body.message);
+          }
+        });
+
+
+      })
+      .catch(error => {
+        isSuccess = false;
+        hideLoading();
+        showDialog('Lỗi: ' + error);
+        console.error(error);
+      });
+  });
+
+  function showLoading() {
+    document.getElementById("loading").style.display = "block";
+  }
+
+  function hideLoading() {
+    document.getElementById("loading").style.display = "none";
+  }
+
+  function showDialog(message) {
+    document.getElementById("dialog-message").textContent = message;
+    document.getElementById("dialog").style.display = "block";
+  }
+
+  function hideDialog() {
+    document.getElementById("dialog").style.display = "none";
+    if (isSuccess) {
+      form.reset();
+      isSuccess = false;
+    }
+  }
+</script>

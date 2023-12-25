@@ -1,0 +1,165 @@
+<div class="content-page">
+  <div class="content">
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-body-action-course">
+                <h4 class="header-title mt-0 mb-3">Điểm danh</h4>
+                <button type="button" class="btn btn-success rounded-pill waves-effect waves-light float-end"
+                  id="submitCreate">Lưu</button>
+              </div>
+
+              <div id="loading" class="loading-container">
+                <div class="loading-spinner">
+                  <i class="fas fa-spinner fa-spin"></i>
+                </div>
+              </div>
+
+              <div id="dialog" class="dialog-container">
+                <div class="dialog-content">
+                  <span id="dialog-message"></span>
+                  <button onclick="hideDialog()">Ok</button>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th style="width: 10%;">#</th>
+                      <th style="width: 50%;">Học Viên</th>
+                      <th style="width: 30%;">Ảnh</th>
+                      <th style="width: 10%;">Điểm Danh</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% listStudent.forEach((value, index)=> { %>
+                      <tr>
+                        <td class="">
+                          <%= index=index + 1 %>
+                        </td>
+                        <td class="">
+                          <a href="" class="text-black">
+                            <%= value.profile.name %>
+                          </a>
+                          <div class="d-none">
+                            <p id="account-id" class="account-id"><%= value.account._id %></p>
+                            <p id="schedule-id" class="schedule-id"><%= idSchedule %></p>
+                          </div>
+                        </td>
+                        <td class="">
+                          <img src="<%= value.profile.avatarUrl %>" alt="Anh" style="height: 50px; width: 50px;">
+                        </td>
+                        <td class="">
+                              <%  if(value.isPresent==true ) { %>
+                                <div class="form-check form-switch ml-5"> <input
+                                    class="form-check-input attendance-checkbox" type="checkbox" id="toggle" checked>
+                                </div>
+                                <% }else{ %>
+                                  <div class="form-check form-switch ml-5"> <input
+                                      class="form-check-input attendance-checkbox" type="checkbox" id="toggle"> </div>
+                                  <% } %>
+                                     
+                        </td>
+                      </tr>
+                      <% }) %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- end col -->
+
+    </div>
+    <!-- end row -->
+
+  </div> <!-- container-fluid -->
+
+</div> <!-- content -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var isSuccess = false;
+    const upload = document.getElementById('submitCreate');
+    upload.addEventListener('click', function (event) {
+      event.preventDefault();
+      const baseURL = window.location.protocol + '//' + window.location.host;
+      const data = [];
+
+      const rows = document.querySelectorAll('tbody tr');
+      rows.forEach((row) => {
+        // Lấy các phần tử trong hàng
+        const studentId = row.querySelector('.account-id').textContent;
+        console.log(`[upload] studentId -> ${studentId} `);
+        const scheduleId = row.querySelector('.schedule-id').textContent;
+        console.log(`[upload] scheduleId -> ${scheduleId} `);
+        const checkbox = row.querySelector('.attendance-checkbox');
+        // Lấy giá trị của checkbox (checked hoặc không checked)
+        const isChecked = checkbox.checked;
+        console.log(`[upload] checkbox -> ${isChecked} `);
+
+        // Tạo một đối tượng dữ liệu và thêm vào mảng
+        const rowData = {
+          studentAccountId: studentId,
+          scheduleId: scheduleId,
+          isPresent: isChecked,
+        };
+        data.push(rowData);
+      });
+
+      console.log(`[upload] data -> ${JSON.stringify(data)} `);
+      showLoading();
+      fetch(`${baseURL}/admin/course/attendance-student`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(response => {
+        response.json().then(body => {
+          const statusCode = response.status;
+          if (statusCode == 200) {
+            isSuccess = true;
+            hideLoading();
+            showDialog(body.message);
+          } else {
+            isSuccess = false;
+            isSuccess = false;
+            hideLoading();
+            showDialog(body.message);
+          }
+        });
+      }).catch(error => {
+        isSuccess = false;
+        hideLoading();
+        showDialog('Lỗi: ' + error);
+        console.error(error);
+      });
+    });
+  });
+
+  function showLoading() {
+    document.getElementById("loading").style.display = "block";
+  }
+
+  function hideLoading() {
+    document.getElementById("loading").style.display = "none";
+  }
+
+  function showDialog(message) {
+    document.getElementById("dialog-message").textContent = message;
+    document.getElementById("dialog").style.display = "block";
+  }
+
+  function hideDialog() {
+    document.getElementById("dialog").style.display = "none";
+    if (isSuccess) {
+      form.reset();
+      isSuccess = false;
+    }
+  }
+</script>

@@ -1,0 +1,74 @@
+<div class="content-page">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header m-0">
+        <h6>
+          Lịch giảng dạy
+        </h6>
+      </div>
+      <div class="card-body">
+        <table id="example1" class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 5%;">#</th>
+              <th class="text-center" style="width: 10%;">Ngày học</th>
+              <th class="text-center" style="width: 30%;">Khóa học</th>
+              <th class="text-center" style="width: 15%;">Giờ học</th>
+              <th class="text-center" style="width: 30%;">Mô tả</th>
+              <th class="text-center" style="width: 10%;">Link học trực tuyến</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% schedules.forEach((row, index)=> { %>
+              <% const formatDate=(dateString)=> {
+                const date = new Date(dateString);
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+                };
+                %>
+                <tr>
+                  <td class="text-center">
+                    <%= index = index + 1 %>
+                  </td>
+                  <td class="text-center">
+                      <%= formatDate(row.startDate) %>
+                  </td>
+                  <td class="text-center">
+                      <%= row.courses.name %>
+                  </td>
+                  <td class="text-center">
+                  
+                      <%= moment(row.startDate).format('HH:mm') %> -  <%= moment(row.endDate).format('HH:mm') %> 
+                     
+                  </td>
+                  <td class="text-center">
+                    
+                      <%= row.description %>  
+                     
+                  </td>
+                  <td class="text-center">
+                    <a href="<%= row.cycle_courses.googleMeetUrl %>">
+                      <%= row.cycle_courses.googleMeetUrl %>
+                    </a>
+                  </td>
+                </tr>
+                <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+</script>

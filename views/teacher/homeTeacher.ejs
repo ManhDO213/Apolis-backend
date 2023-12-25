@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Apolis - Home </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%-include('../boostrap.ejs')%>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div class="wrapper container-fluid">
+    <!-- Navbar -->
+    <%-include('../navBar.ejs')%>
+
+      <!-- Main Sidebar Container -->
+      <%-include('./sideBarTeacher.ejs')%>
+
+       <!-- Content Wrapper -->
+       <%-include('../content.ejs')%>
+
+          <!-- Footer -->
+          <%-include('../footer.ejs')%>
+  </div>
+
+  <%-include('../styleJs.ejs')%>
+</body>
+
+</html>

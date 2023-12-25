@@ -1,0 +1,183 @@
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body-action-course">
+                                <ul class="nav nav-tabs mt-0 mb-3">
+                                    <li class="nav-item">
+                                        <a href="/admin/course/list-approve-course"
+                                            class="nav-link <%= status === 'PENDING' ? 'active' : '' %>">
+                                            Chờ phê duyệt
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/admin/course/list-approve-course?status=REJECT"
+                                            class="nav-link <%= status === 'REJECT' ? 'active' : '' %>">
+                                            Đã từ chối
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="card-body-action-right">
+                                    <div class="dropdown float-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-info dropdown-toggle" type="button"
+                                                id="dropdownCategoryButton" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="true">
+                                                Thể loại</i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownCategoryButton"
+                                                data-popper-placement="bottom-start"
+                                                style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 40px, 0px);">
+                                                <a class="dropdown-item" href="#">Tất cả</a>
+                                                <a class="dropdown-item" href="#">Reading</a>
+                                                <a class="dropdown-item" href="#">Listening</a>
+                                                <a class="dropdown-item" href="#">Speaking</a>
+                                                <a class="dropdown-item" href="#">Writing</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown float-end">
+                                        <div class="dropdown">
+                                            <button class="btn btn-info dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="true">
+                                                Sắp xếp giá</i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                                data-popper-placement="bottom-start"
+                                                style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 40px, 0px);">
+                                                <a class="dropdown-item" href="#">Mặc định</a>
+                                                <a class="dropdown-item" href="#">Tăng dần</a>
+                                                <a class="dropdown-item" href="#">Giảm dần</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-content ">
+                                <div class="tab-pane  <%= status === 'PENDING' ? 'show active' : '' %>">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-course-id">#</th>
+                                                    <th class="col-course-name">Tên khóa học</th>
+                                                    <th class="col-course-start">Từ ngày</th>
+                                                    <th class="col-course-end">Kết thúc</th>
+                                                    <th class="col-course-category">Thể loại</th>
+                                                    <th class="col-course-fee">Học phí</th>
+                                                    <th class="col-course-detail"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <% listCourseData.forEach((row, index)=> { %>
+                                                        <tr>
+                                                            <td class="col-course-id">
+                                                                <%= index++ %>
+                                                            </td>
+                                                            <td class="col-course-name">
+                                                                <%= row.name %>
+                                                            </td>
+                                                            <td class="col-course-start">
+                                                                <% const formatDate=(dateString)=> {
+                                                                    const date = new Date(dateString);
+                                                                    const day = date.getDate();
+                                                                    const month = date.getMonth() + 1;
+                                                                    const year = date.getFullYear();
+                                                                    return `${day}/${month}/${year}`;
+                                                                    };
+                                                                    %>
+                                                                    <%= formatDate(row.cycle_course.registrationPeriod.startDate)
+                                                                        %>
+                                                            </td>
+                                                            <td class="col-course-end">
+                                                                <%= formatDate(row.cycle_course.endDate) %>
+                                                            </td>
+                                                            <td class="col-course-category">
+                                                                <%= row.category %>
+                                                            </td>
+                                                            <td class="col-course-fee">
+                                                                <%= row.feeCoin %> VNĐ %>
+                                                            </td>
+                                                            <td class="col-course-detail"><a
+                                                                    href="/admin/course/detail-course/<%= row._id %>">Chi
+                                                                    tiết</a></td>
+                                                        </tr>
+                                                            <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane <%= status === 'REJECT' ? 'show active' : '' %>">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-course-id">#</th>
+                                                    <th class="col-course-name">Tên khóa học</th>
+                                                    <th class="col-course-start">Từ ngày</th>
+                                                    <th class="col-course-end">Kết thúc</th>
+                                                    <th class="col-course-category">Thể loại</th>
+                                                    <th class="col-course-fee">Học phí</th>
+                                                    <th class="col-course-detail"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% listCourseData.forEach((row, index)=> { %>
+                                                    <tr>
+                                                        <td class="col-course-id">
+                                                            <%= index++ %>
+                                                        </td>
+                                                        <td class="col-course-name">
+                                                            <%= row.name %>
+                                                        </td>
+                                                        <td class="col-course-start">
+                                                            <% const formatDate=(dateString)=> {
+                                                                const date = new Date(dateString);
+                                                                const day = date.getDate();
+                                                                const month = date.getMonth() + 1;
+                                                                const year = date.getFullYear();
+                                                                return `${day}/${month}/${year}`;
+                                                                };
+                                                                %>
+                                                                <%= formatDate(row.cycle_course.registrationPeriod.startDate)
+                                                                    %>
+                                                        </td>
+                                                        <td class="col-course-end">
+                                                            <%= formatDate(row.cycle_course.endDate) %>
+                                                        </td>
+                                                        <td class="col-course-category">
+                                                            <%= row.category %>
+                                                        </td>
+                                                        <td class="col-course-fee">
+                                                            <%= row.feeCoin %> VNĐ %>
+                                                        </td>
+                                                        <td class="col-course-detail"><a
+                                                                href="/admin/course/detail-course/<%= row._id %>">Chi
+                                                                tiết</a></td>
+                                                    </tr>
+                                                    <% }) %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

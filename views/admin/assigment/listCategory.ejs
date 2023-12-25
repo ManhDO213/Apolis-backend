@@ -1,0 +1,53 @@
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body-action-course">
+                                <h4 class="header-title mt-0 mb-3">Danh sách thể loại</h4>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 15%;">#</th>
+                                            <th>Thể loại</th>
+                                            <th style="width: 20%;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% listCategory.forEach((row, index)=> { %>
+                                        <tr>
+                                            <td class="col-course-id"><%= index = index + 1 %></td>
+                                            <td class="col-course-name"><%= row.type %>
+                                            <td class="col-course-detail">
+                                                <% if(row.question_assignment.length > 0) { %>
+                                                    <a href="/admin/course/listAssigment/<%= row._id %>">Chi
+                                                        tiết</a>
+                                                    <% } else { %>
+                                                        <a href="/admin/course/addAssigment/<%= row._id %>">Chi
+                                                            tiết</a>
+                                                        <% } %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+            <!-- end row -->
+
+        </div> <!-- container-fluid -->
+
+    </div> <!-- content -->
+
+</div>

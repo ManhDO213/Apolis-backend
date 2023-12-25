@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Apolis - Danh sách học viên</title>
+    <link rel="stylesheet" type="text/css" href="../../public/stylesheets/apprroveCourse.css">
+    <%-include('../../boostrap.ejs')%>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <%-include('../../navBar.ejs')%>
+            <!-- /.navbar -->
+
+            <!-- Main Sidebar Container -->
+            <%-include('../sideBarTeacher.ejs')%>
+                <!-- ------------------------ Content Wrapper. Contains page content -----------------------------------------------------------   -->
+
+                <!-- Content Wrapper. Contains page content -->
+                <div class="content-wrapper">
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1>Quản lý học viên</h1>
+                                </div>
+                            </div>
+                        </div><!-- /.container-fluid -->
+                    </section>
+
+                    <!-- Main content -->
+                    <section class="content">
+
+                        <!-- Default box -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Danh sách học viên</h3>
+                                <div class="card-tools">
+                                    <div class="input-group input-group-sm" style="width: 300px">
+                                        <input type="text" name="table_search"
+                                            class="form-control float-right border-1 rounded rounded-1"
+                                            placeholder="Search" />
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-default border-1 rounded rounded-1">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-striped projects">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%">
+                                                #
+                                            </th>
+                                            <th style="width: 18%">
+                                                Tên
+                                            </th>
+                                            <th style="width: 12%">
+                                                Ảnh
+                                            </th>
+                                            <th style="width: 20%">
+                                                Email
+                                            </th>
+                                            <th>
+                                                Khoá học
+                                            </th>
+                                            <th class="text-center">
+                                                Trạng thái
+                                            </th>
+                                            <th>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>
+                                                Hoàng Việt Hùng
+                                            </td>
+                                            <td>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar"
+                                                        src="../../public/dist/img/avatar3.png">
+                                                </li>
+                                            </td>
+                                            <td>
+                                                hoanghung@gmail.com
+                                            </td>
+                                            <td class="pl-5">
+                                                8
+                                            </td>
+                                            <td class="project-state">
+                                                <span class="badge badge-success">Hoạt động</span>
+                                            </td>
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-secondary btn-sm"
+                                                    href="">
+                                                    <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                2
+                                            </td>
+                                            <td>
+                                                Hoàng Việt Hùng
+                                            </td>
+                                            <td>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar"
+                                                        src="../../public/dist/img/avatar3.png">
+                                                </li>
+                                            </td>
+                                            <td>
+                                                hoanghung@gmail.com
+                                            </td>
+                                            <td class="pl-5">
+                                                8
+                                            </td>
+                                            <td class="project-state">
+                                                <span class="badge badge-success">Hoạt động</span>
+                                            </td>
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-secondary btn-sm"
+                                                    href="">
+                                                    <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                3
+                                            </td>
+                                            <td>
+                                                Hoàng Việt Hùng
+                                            </td>
+                                            <td>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar"
+                                                        src="../../public/dist/img/avatar3.png">
+                                                </li>
+                                            </td>
+                                            <td>
+                                                hoanghung@gmail.com
+                                            </td>
+                                            <td class="pl-5">
+                                                8
+                                            </td>
+                                            <td class="project-state">
+                                                <span class="badge badge-success">Hoạt động</span>
+                                            </td>
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-secondary btn-sm"
+                                                    href="">
+                                                    <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+
+                    </section>
+                    <!-- /.content -->
+                </div>
+                <!-- /.content-wrapper -->
+
+                <!-- Create-Modal -->
+                <div class="modal" id="createModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Thêm Mới Học Viên</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form action="">
+                                    <div class="form-group">
+                                        <label for="firstName">Họ và tên đệm</label>
+                                        <input type="text" class="form-control" placeholder="First Name" id="firstName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Tên</label>
+                                        <input type="text" class="form-control" placeholder="Last Name" id="lastName">
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label>Giới tính</label>
+                                        <select class="form-control select2" style="width: 25%;">
+                                            <option selected="selected">Giới tính</option>
+                                            <option>Nam</option>
+                                            <option>Nữ</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" placeholder="Email" id="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Mật khẩu</label>
+                                        <input type="password" class="form-control" placeholder="Password"
+                                            id="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Trạng thái</label>
+                                        <select class="form-control select2" style="width: 25%;">
+                                            <option selected="selected">Trạng thái</option>
+                                            <option>Hoạt động</option>
+                                            <option>Khoá</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Huỷ</button>
+                                <button type="submit" class="btn btn-success" data-dismiss="modal">Thêm mới</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end-modal-create -->
+
+                <!-- edit-Modal -->
+                <div class="modal" id="editModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Chỉnh sửa thông tin</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form action="">
+                                    <div class="form-group">
+                                        <label for="firstName">Họ và tên đệm</label>
+                                        <input type="text" class="form-control" placeholder="First Name" id="firstName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Tên</label>
+                                        <input type="text" class="form-control" placeholder="Last Name" id="lastName">
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label>Giới tính</label>
+                                        <select class="form-control select2" style="width: 25%;">
+                                            <option selected="selected">Giới tính</option>
+                                            <option>Nam</option>
+                                            <option>Nữ</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" placeholder="Email" id="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Mật khẩu</label>
+                                        <input type="password" class="form-control" placeholder="Password"
+                                            id="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Trạng thái</label>
+                                        <select class="form-control select2" style="width: 25%;">
+                                            <option selected="selected">Trạng thái</option>
+                                            <option>Hoạt động</option>
+                                            <option>Khoá</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Huỷ</button>
+                                <button type="submit" class="btn btn-success" data-dismiss="modal">Cập nhật</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end-modal-edit -->
+
+                <!-- modal-delete  -->
+                <div class="modal" id="deleteModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Thông báo!</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Bạn có muốn xoá này không?
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <a href=""> <button type="button" class="btn btn-outline-danger">Xoá</button></a>
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Huỷ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end-modal-delete -->
+
+                <!-- modal-lock  -->
+                <div class="modal" id="lockModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Thông báo!</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Lí do khoá ?</label>
+                                    <textarea class="form-control" rows="4" placeholder=""></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Huỷ</button>
+                                <a href=""> <button type="button" class="btn btn-outline-danger">Khoá</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end-modal-lock -->
+
+                <!-- ------------------------ Footer -----------------------------------------------------------   -->
+                <%-include('../../footer.ejs')%>
+    </div>
+
+    <%-include('../../styleJs.ejs')%>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<div class="content-page">
+  <div class="content">
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-body-action-course">
+                <h4 class="header-title mt-0 mb-3">Bảng điểm</h4>
+              </div>
+              <div class="table-responsive scrollmenu">
+                <table id="example1" class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th rowspan="2" style="padding-bottom: 27px">#</th>
+                      <th rowspan="2" style="padding-bottom: 27px">Tên học viên</th>
+                      <th colspan="14" class="text-center">Điểm</th>
+                    <tr>
+                      <th class="fw-bolder bg-body-secondary">Quiz 1</th>
+                      <th class="fw-bolder bg-body-secondary">Quiz 2</th>
+                      <th class="fw-bolder bg-body-secondary">Quiz 3</th>
+                      <th class="fw-bolder bg-body-secondary">Quiz 4</th>
+                      <th class="fw-bolder bg-body-secondary">Quiz 5</th>
+                      <th class="fw-bolder bg-body-secondary">Quiz 6</th>
+                      <th class="fw-bolder bg-body-secondary">Quiz 7</th>
+                      <th class="fw-bolder bg-body-secondary">Quiz 8</th>
+                      <th class="fw-bolder bg-body-secondary">Quiz 9</th>
+                      <th class="fw-bolder bg-body-secondary">Quiz 10</th>
+                      <th class="fw-bolder bg-body-secondary">Final</th>
+                      <th class="fw-bolder bg-body-secondary">Trạng thái</th>
+                    </tr>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        <a href="" class="text-black">
+                          Hoàng Việt Hùng
+                        </a>
+                      </td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>1</td>
+                      <td class="text-danger">Chưa đạt</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>
+                        <a href="" class="text-black">
+                          Đỗ Văn Mạnh
+                        </a>
+                      </td>
+                      <td>10</td>
+                      <td>10</td>
+                      <td>10</td>
+                      <td>10</td>
+                      <td>10</td>
+                      <td>10</td>
+                      <td>10</td>
+                      <td>10</td>
+                      <td>10</td>
+                     
+                      <td>10</td>
+                      <td>10</td>
+                      <td class="text-success">Đạt</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>
+                        <a href="" class="text-black">
+                          Phạm Minh Quân
+                        </a>
+                      </td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      
+                      <td>6</td>
+                      <td>1</td>
+                      <td class="text-danger">Chưa đạt</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>
+                        <a href="" class="text-black">
+                          Nguyễn Hoàng long
+                        </a>
+                      </td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      <td>6</td>
+                      
+                      <td>6</td>
+                      <td>1</td>
+                      <td class="text-danger">Chưa đạt</td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+          </div>
+        </div><!-- end col -->
+
+      </div>
+      <!-- end row -->
+
+    </div> <!-- container-fluid -->
+
+  </div> <!-- content -->
+
+</div>
+
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+</script>

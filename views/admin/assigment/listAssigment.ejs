@@ -1,0 +1,56 @@
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-body-action-course">
+                                <h4 class="header-title mt-0 mb-3">Assigment</h4>
+                            </div>
+                            <div class="row justify-content-center gap-2">
+                                <% listAssigment[0].question_assignment.forEach((row, index) =>{  %>
+                                    <div class="col-lg-5 card m-0 p-0">
+                                        <div class="card-header">
+                                            <h6 class="m-0">
+                                                Câu hỏi <%= index = index + 1 %> 
+                                            </h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <h6><%= row.question %></h6>
+                                            <% row.answers.forEach((answer, indexAnswer)=> { %>
+                                                <div class="form-check">
+                                                    <input type="radio"
+                                                        id="customRadio<%= index %>><%= indexAnswer %>"
+                                                        name="customRadio<%= index %>"
+                                                        class="form-check-input" disabled <% if
+                                                        (answer.isCorrect) { %>
+                                                    checked
+                                                    <% } %>
+                                                        >
+                                                        <label class="form-check-label"
+                                                            for="customRadio<%= index %>">
+                                                            <%= answer.value %>
+                                                        </label>
+                                                </div>
+                                                <% }) %>
+                                        </div>
+                                    </div>
+                                    <%  }) %>
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end col -->
+
+            </div>
+            <!-- end row -->
+
+        </div> <!-- container-fluid -->
+
+    </div> <!-- content -->
+
+</div>

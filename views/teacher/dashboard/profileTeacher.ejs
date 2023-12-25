@@ -1,0 +1,186 @@
+<div class="content-page">
+    <div class="content">
+      <!-- Start Content-->
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Left col -->
+          <div class="col-lg-4 connectedSortable">
+            <div class="row invoice">
+              <!-- info row -->
+              <div class="col-lg-12 connectedSortable">
+                <img class="d-block w-100" src="<%= account[0].profileData.avatarUrl %>">
+              </div>
+            </div>
+          </div>
+          <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          <div class="col-lg-8 connectedSortable">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h4 class="m-0">
+                      <%= account[0].profileData.name %>
+                    </h4>
+                    <p class="text-muted"><i>
+                        <%= account[0].profileData.introduce %>
+                      </i>
+                    </p>
+                  </div>
+                  <div class="col-sm-6 invoice-col">
+                    <strong>Giới tính: </strong><br>
+                    <address>
+                      <% if(account[0].profileData.gender=="MALE" ) {%>
+                        <address>
+                          Nam
+                        </address>
+                        <%} else{ %>
+                          <address>
+                            Nữ
+                          </address>
+                          <%}%>
+                    </address>
+                  </div>
+                  <div class="col-sm-6 invoice-col">
+                    <strong>Email: </strong><br>
+                    <address>
+                      <%= account[0].email %>
+                    </address>
+                  </div>
+                  <div class="col-sm-6 invoice-col">
+                    <strong>Trạng thái: </strong><br>
+                    <address>
+                      <% if(account[0].status=="ACTIVE" ) {%>
+                        <address class="text-success">
+                          Đã kích hoạt
+                        </address>
+                        <%} else{ %>
+                          <address class="text-danger">
+                            Chưa kích hoạt
+                          </address>
+                          <%}%>
+                    </address>
+                  </div>
+                  <div class="col-sm-6 invoice-col">
+                    <strong>Số điện thoại: </strong><br>
+                    <address>
+                      <%= account[0].phoneNumber %>
+                    </address>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <strong>Kỹ năng:</strong><br>
+                <address>
+                  <% account[0].profileData.skills.forEach((row)=> { %>
+                    <b>- </b>
+                    <%= row %> <br>
+                      <% }) %>
+                </address>
+              </div>
+            </div>
+            <!-- /.col -->
+          </div>
+        </div>
+        <hr>
+        <div class="row gap-4">
+          <div class="col-md-5 ml-3">
+            <h4>Học vấn</h4>
+            <div class="timeline">
+              <article class="timeline-item alt">
+                <div class="time-show first">
+                  <a href="#" class="btn btn-secondary width-lg"><%= moment(account[0].profileData.educations.dateStart).format('DD MMM. YYYY') %></a>
+                </div>
+              </article>
+              <% account[0].profileData.educations.listEducation.forEach((row)=> { %>    
+              <article class="timeline-item alt">
+                <div class="timeline-desk">
+                  <div class="panel">
+                    <div class="panel-body">
+                      <span class="arrow-alt"></span>
+                      <span class="timeline-icon bg-danger"><i class="mdi mdi-circle"></i></span>
+                      <h4 class="text-danger mt-0"><%= row.title %></h4>
+                      <p><%= row.description %> </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              
+              <article class="timeline-item ">
+                <div class="timeline-desk">
+                  <div class="panel">
+                    <div class="panel-body">
+                      <span class="arrow"></span>
+                      <span class="timeline-icon bg-success"><i class="mdi mdi-circle"></i></span>
+                      <h4 class="text-success mt-0">2 hours ago</h4>
+                      <p class="timeline-date text-muted"><small>08:25 am</small></p>
+                      <p>consectetur adipisicing elit. Iusto, optio, dolorum <a href="#">John deon</a> provident rerum aut
+                        hic quasi placeat iure tempora laudantium </p>
+  
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <% }) %>
+            </div>
+          </div>
+          <div class="col-lg-1">
+            <div class="vertical-line"></div>
+          </div>
+          <div class="col-md-5">
+            <h4>Kinh nghiệm làm việc</h4>
+            <div class="timeline">
+              <% account[0].profileData.experiences.forEach((row)=> { %>    
+              <article class="timeline-item alt">
+                <div class="time-show first">
+                  <a href="#" class="btn btn-secondary width-lg"><%= moment(row.dateStart).format('DD MMM. YYYY') %></a>
+                </div>
+              </article>
+              <article class="timeline-item alt">
+                <div class="timeline-desk">
+                  <div class="panel">
+                    <div class="panel-body">
+                      <% row.listCompany.forEach((data)=> { %> 
+                      <span class="arrow-alt"></span>
+                      <span class="timeline-icon bg-danger"><i class="mdi mdi-circle"></i></span>
+                      <h4 class="text-danger mt-0"><%= data.nameCompany %></h4>
+                      <p class="timeline-date text-muted"><small>08:25 am</small></p>
+                      <% data.role.forEach((data2)=> { %> 
+                      <p><%= data2 %></p>
+                      <% }) %>
+                    </div>
+                    <% }) %>
+                  </div>
+                </div>
+              </article>
+              <article class="timeline-item ">
+                <div class="timeline-desk">
+                  <div class="panel">
+                    <div class="panel-body">
+                      <span class="arrow"></span>
+                      <span class="timeline-icon bg-success"><i class="mdi mdi-circle"></i></span>
+                      <h4 class="text-success mt-0">2 hours ago</h4>
+                      <p class="timeline-date text-muted"><small>08:25 am</small></p>
+                      <p>consectetur adipisicing elit. Iusto, optio, dolorum <a href="#">John deon</a> provident rerum aut
+                        hic quasi placeat iure tempora laudantium </p>
+  
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <% }) %>
+          </div>
+        </div>
+      </div>
+      <!-- right col -->
+      <a href="/teacher/edit-profile/<%= account[0]._id %>">
+      <button type="button" class="btn btn-info waves-effect waves-light float-end">
+        Sửa<span class="btn-label-right"><i class="mdi mdi-alert-circle-outline"></i></span>
+    </button>
+    </a>
+    </div>
+  </div>
+  <!-- container-fluid -->
+  </div>
+  <!-- content -->
+  </div>
